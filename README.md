@@ -15,11 +15,11 @@ Current contenders:
 
 | Test                                    | How long does it take...                   |
 | --------------------------------------- | ------------------------------------------ |
-| [Construction](README.md#Construction)  | for a mock to be created?                  |
-| [Return](README.md#Return)              | for a mocked method to return a value?     |
-| [Callback](README.md#Callback)          | for a mocked method to perform a callback? |
-| [ReturnOnly](README.md#ReturnOnly)      | for an already set-up method to return?    |
-| [CallbackOnly](README.md#CallbackOnly)  | for an already set-up method to callback?  |
+| [Construction](README.md#construction)  | for a mock to be created?                  |
+| [Return](README.md#return)              | for a mocked method to return a value?     |
+| [Callback](README.md#callback)          | for a mocked method to perform a callback? |
+| [ReturnOnly](README.md#returnonly)      | for an already set-up method to return?    |
+| [CallbackOnly](README.md#callbackonly)  | for an already set-up method to callback?  |
 
 ### Results
 
