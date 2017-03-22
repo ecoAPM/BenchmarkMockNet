@@ -30,6 +30,7 @@ namespace BenchmarkMockNet
             sub.Do();
         }
 
+        [Benchmark]
         public void FakeItEasy()
         {
             var fake = A.Fake<IThingy>();
