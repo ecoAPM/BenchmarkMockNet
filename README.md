@@ -1,15 +1,18 @@
 # BenchmarkMockNet
 Using BenchmarkDotNet to compare .NET Core mocking library performance
+
 ---
 
 This repo contains the code for -- and results of -- a series of benchmarks around the functionality of some of .NET Core's mocking libraries.
 
 The baseline is a simple [stub](https://github.com/stevedesmond-ca/BenchmarkMockNet/blob/master/ThingStub.cs).
 
-Current contenders:
+## Current contenders
 - [Moq](https://github.com/moq/moq4)
 - [NSubstitute](http://nsubstitute.github.io/)
 - [FakeItEasy](https://github.com/FakeItEasy/FakeItEasy)
+
+Want to add more? PRs welcome! Just add a method to IMockingBenchmark and IMockingBenchmark<T> and implement it in each of the tests.
 
 ## Tests
 
@@ -21,9 +24,14 @@ Current contenders:
 | [ReturnOnly](README.md#returnonly)      | for an already set-up method to return?    |
 | [CallbackOnly](README.md#callbackonly)  | for an already set-up method to callback?  |
 
+Want to add more? PRs welcome! Just add a new class implementing IMockingBenchmark or IMockingBenchmark<T> depending on what you're testing.
+
 ### Results
 
 #### Construction
+
+This test simply creates an IThingy object to test using the given framework
+
 
  |      Method |          Mean |     StdErr |      StdDev |   Scaled | Scaled-StdDev |
  |------------ |-------------- |----------- |------------ |--------- |-------------- |
@@ -34,6 +42,8 @@ Current contenders:
  
  #### Return
  
+ A mock object is created, a method setup with a return, and that method called
+ 
  |      Method |            Mean |        StdDev |     Scaled | Scaled-StdDev |
  |------------ |---------------- |-------------- |----------- |-------------- |
  |        Stub |       2.4094 ns |     0.0723 ns |       1.00 |          0.00 |
@@ -42,6 +52,8 @@ Current contenders:
  |  FakeItEasy |  47,689.6951 ns |   469.7247 ns |  19,809.17 |        592.15 |
  
  #### Callback
+ 
+ A mock object is created, a method setup with a callback, and that method called
  
  |      Method |            Mean |        StdDev |     Scaled | Scaled-StdDev |
  |------------ |---------------- |-------------- |----------- |-------------- |
@@ -52,6 +64,8 @@ Current contenders:
  
  #### ReturnOnly
  
+ The creation of the mock object and its method setup are done outside the benchmark; only the method's call itself is tested
+ 
  |      Method |          Mean |     StdDev |   Scaled | Scaled-StdDev |
  |------------ |-------------- |----------- |--------- |-------------- |
  |        Stub |     1.2374 ns |  0.0191 ns |     1.00 |          0.00 |
@@ -61,6 +75,8 @@ Current contenders:
 _FakeItEasy grows linearly on every run_ **PR me**
  
  #### CallbackOnly
+ 
+ The creation of the mock object and its method setup are done outside the benchmark; only the method's call itself is tested
  
  |      Method |           Mean |      StdDev |   Scaled | Scaled-StdDev |
  |------------ |--------------- |------------ |--------- |-------------- |
