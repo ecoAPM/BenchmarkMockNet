@@ -6,11 +6,15 @@ namespace BenchmarkMockNet
     {
         public static void Main(string[] args)
         {
-            BenchmarkRunner.Run<Construction>();
-            BenchmarkRunner.Run<CallbackOnly>();
-            BenchmarkRunner.Run<ReturnOnly>();
-            BenchmarkRunner.Run<Callback>();
-            BenchmarkRunner.Run<Return>();
+            new BenchmarkSwitcher(new[] {
+                typeof(Construction),
+                typeof(Callback),
+                typeof(CallbackOnly),
+                typeof(Return),
+                typeof(ReturnOnly),
+                typeof(Verify),
+                typeof(VerifyOnly)
+            }).Run();
         }
     }
 }
