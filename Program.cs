@@ -9,10 +9,14 @@ namespace BenchmarkMockNet
             new BenchmarkSwitcher(new[] {
                 typeof(Construction),
                 typeof(Callback),
-                typeof(CallbackOnly),
+                typeof(EmptyMethod),
+                typeof(EmptyReturn),
                 typeof(Return),
-                typeof(ReturnOnly),
                 typeof(Verify),
+                typeof(CallbackOnly),
+                typeof(EmptyMethodOnly),
+                typeof(EmptyReturnOnly),
+                typeof(ReturnOnly),
                 typeof(VerifyOnly)
             }).Run();
         }
