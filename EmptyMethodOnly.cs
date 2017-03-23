@@ -1,35 +1,31 @@
-﻿using System;
+using System;
 using BenchmarkDotNet.Attributes;
 using Moq;
 using NSubstitute;
 
 namespace BenchmarkMockNet
 {
-    public class CallbackOnly : IMockingBenchmark
+    public class EmptyMethodOnly : IMockingBenchmark
     {
         private readonly IThingy stub;
         private readonly Mock<IThingy> mock;
         private readonly IThingy sub;
 
-        public CallbackOnly()
+        public EmptyMethodOnly()
         {
             stub = new ThingStub();
-
             mock = new Mock<IThingy>();
-            mock.Setup(m => m.DoSomething()).Callback(() => mock.Object.Called = true);
-
             sub = Substitute.For<IThingy>();
-            sub.When(s => s.DoSomething()).Do(c => sub.Called = true);
         }
 
         [Benchmark(Baseline = true)]
-        public void Stub() => stub.DoSomething();
+        public void Stub() => stub.DoNothing();
 
         [Benchmark]
-        public void Moq() => mock.Object.DoSomething();
+        public void Moq() => mock.Object.DoNothing();
 
         [Benchmark]
-        public void NSubstitute() => sub.DoSomething();
+        public void NSubstitute() => sub.DoNothing();
 
         public void FakeItEasy() => throw new NotImplementedException("Never completes, probably a memory leak");
     }

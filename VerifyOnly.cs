@@ -16,16 +16,16 @@ namespace BenchmarkMockNet
         public VerifyOnly()
         {
             stub = new ThingStub();
-            stub.Do();
+            stub.DoSomething();
 
             mock = new Mock<IThingy>();
-            mock.Object.Do();
+            mock.Object.DoSomething();
 
             sub = Substitute.For<IThingy>();
-            sub.Do();
+            sub.DoSomething();
 
             fake = A.Fake<IThingy>();
-            fake.Do();
+            fake.DoSomething();
         }
 
         [Benchmark(Baseline = true)]
@@ -37,19 +37,19 @@ namespace BenchmarkMockNet
         [Benchmark]
         public void Moq()
         {
-            mock.Verify(m => m.Do(), Times.AtLeastOnce);
+            mock.Verify(m => m.DoSomething(), Times.AtLeastOnce);
         }
 
         [Benchmark]
         public void NSubstitute()
         {
-            sub.Received().Do();
+            sub.Received().DoSomething();
         }
 
         [Benchmark]
         public void FakeItEasy()
         {
-            A.CallTo(() => fake.Do()).MustHaveHappened();
+            A.CallTo(() => fake.DoSomething()).MustHaveHappened();
         }
     }
 }

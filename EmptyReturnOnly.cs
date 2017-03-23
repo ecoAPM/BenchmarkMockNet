@@ -5,31 +5,27 @@ using NSubstitute;
 
 namespace BenchmarkMockNet
 {
-    public class ReturnOnly : IMockingBenchmark<int>
+    public class EmptyReturnOnly : IMockingBenchmark<int>
     {
         private readonly IThingy stub;
         private readonly Mock<IThingy> mock;
         private readonly IThingy sub;
 
-        public ReturnOnly()
+        public EmptyReturnOnly()
         {
             stub = new ThingStub();
-
             mock = new Mock<IThingy>();
-            mock.Setup(m => m.One()).Returns(1);
-
             sub = Substitute.For<IThingy>();
-            sub.One().Returns(1);
         }
 
         [Benchmark(Baseline = true)]
-        public int Stub() => stub.One();
+        public int Stub() => stub.Zero();
 
         [Benchmark]
-        public int Moq() => mock.Object.One();
+        public int Moq() => mock.Object.Zero();
 
         [Benchmark]
-        public int NSubstitute() => sub.One();
+        public int NSubstitute() => sub.Zero();
 
         public int FakeItEasy() => throw new NotImplementedException("Never completes, probably a memory leak");
     }

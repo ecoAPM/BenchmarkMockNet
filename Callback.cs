@@ -11,31 +11,31 @@ namespace BenchmarkMockNet
         public void Stub()
         {
             var stub = new ThingStub();
-            stub.Do();
+            stub.DoSomething();
         }
 
         [Benchmark]
         public void Moq()
         {
             var mock = new Mock<IThingy>();
-            mock.Setup(m => m.Do()).Callback(() => mock.Object.Called = true);
-            mock.Object.Do();
+            mock.Setup(m => m.DoSomething()).Callback(() => mock.Object.Called = true);
+            mock.Object.DoSomething();
         }
 
         [Benchmark]
         public void NSubstitute()
         {
             var sub = Substitute.For<IThingy>();
-            sub.When(s => s.Do()).Do(c => sub.Called = true);
-            sub.Do();
+            sub.When(s => s.DoSomething()).Do(c => sub.Called = true);
+            sub.DoSomething();
         }
 
         [Benchmark]
         public void FakeItEasy()
         {
             var fake = A.Fake<IThingy>();
-            A.CallTo(() => fake.Do()).Invokes(() => fake.Called = true);
-            fake.Do();
+            A.CallTo(() => fake.DoSomething()).Invokes(() => fake.Called = true);
+            fake.DoSomething();
         }
     }
 }
