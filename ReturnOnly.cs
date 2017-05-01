@@ -2,6 +2,7 @@ using System;
 using BenchmarkDotNet.Attributes;
 using Moq;
 using NSubstitute;
+using Rocks;
 
 namespace BenchmarkMockNet
 {
@@ -10,6 +11,7 @@ namespace BenchmarkMockNet
         private readonly IThingy stub;
         private readonly Mock<IThingy> mock;
         private readonly IThingy sub;
+        private readonly IRock<IThingy> rock;
 
         public ReturnOnly()
         {
@@ -20,6 +22,9 @@ namespace BenchmarkMockNet
 
             sub = Substitute.For<IThingy>();
             sub.One().Returns(1);
+
+            rock = Rock.Create<IThingy>();
+            rock.Handle(r => r.One()).Returns(1);
         }
 
         [Benchmark(Baseline = true)]
@@ -32,5 +37,8 @@ namespace BenchmarkMockNet
         public int NSubstitute() => sub.One();
 
         public int FakeItEasy() => throw new NotImplementedException("Never completes, probably a memory leak");
+
+        [Benchmark]
+        public int Rocks() => rock.Make().One();
     }
 }
