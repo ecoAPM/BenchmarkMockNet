@@ -3,6 +3,7 @@ using BenchmarkDotNet.Attributes;
 using FakeItEasy;
 using Moq;
 using NSubstitute;
+using Rocks;
 
 namespace BenchmarkMockNet
 {
@@ -12,6 +13,7 @@ namespace BenchmarkMockNet
         private readonly Mock<IThingy> mock;
         private readonly IThingy sub;
         private readonly IThingy fake;
+        private readonly IRock<IThingy> rock;
 
         public VerifyOnly()
         {
@@ -26,6 +28,10 @@ namespace BenchmarkMockNet
 
             fake = A.Fake<IThingy>();
             fake.DoSomething();
+
+            rock = Rock.Create<IThingy>();
+            rock.Handle(_ => _.DoSomething());
+            rock.Make().DoSomething();
         }
 
         [Benchmark(Baseline = true)]
@@ -50,6 +56,12 @@ namespace BenchmarkMockNet
         public void FakeItEasy()
         {
             A.CallTo(() => fake.DoSomething()).MustHaveHappened();
+        }
+
+        [Benchmark]
+        public void Rocks()
+        {
+            rock.Verify();
         }
     }
 }

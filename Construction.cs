@@ -2,6 +2,7 @@
 using FakeItEasy;
 using Moq;
 using NSubstitute;
+using Rocks;
 
 namespace BenchmarkMockNet
 {
@@ -29,6 +30,12 @@ namespace BenchmarkMockNet
         public IThingy FakeItEasy()
         {
             return A.Fake<IThingy>();
+        }
+
+        [Benchmark]
+        public IThingy Rocks()
+        {
+            return Rock.Create<IThingy>().Make();
         }
     }
 }
