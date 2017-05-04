@@ -3,7 +3,7 @@ using FakeItEasy;
 using Moq;
 using NSubstitute;
 
-namespace BenchmarkMockNet
+namespace BenchmarkMockNet.Benchmarks
 {
     public class Construction : IMockingBenchmark<IThingy>
     {

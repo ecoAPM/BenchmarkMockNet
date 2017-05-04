@@ -1,38 +1,43 @@
+using System;
 using BenchmarkDotNet.Attributes;
 using FakeItEasy;
 using Moq;
 using NSubstitute;
 
-namespace BenchmarkMockNet
+namespace BenchmarkMockNet.Benchmarks
 {
-    public class EmptyMethod : IMockingBenchmark
+    public class Verify : IMockingBenchmark
     {
         [Benchmark(Baseline = true)]
         public void Stub()
         {
             var stub = new ThingStub();
-            stub.DoNothing();
+            stub.DoSomething();
+            if(!stub.Called) throw new Exception();
         }
 
         [Benchmark]
         public void Moq()
         {
             var mock = new Mock<IThingy>();
-            mock.Object.DoNothing();
+            mock.Object.DoSomething();
+            mock.Verify(m => m.DoSomething(), Times.AtLeastOnce);
         }
 
         [Benchmark]
         public void NSubstitute()
         {
             var sub = Substitute.For<IThingy>();
-            sub.DoNothing();
+            sub.DoSomething();
+            sub.Received().DoSomething();
         }
 
         [Benchmark]
         public void FakeItEasy()
         {
             var fake = A.Fake<IThingy>();
-            fake.DoNothing();
+            fake.DoSomething();
+            A.CallTo(() => fake.DoSomething()).MustHaveHappened();
         }
     }
 }

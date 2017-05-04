@@ -4,7 +4,7 @@ using FakeItEasy;
 using Moq;
 using NSubstitute;
 
-namespace BenchmarkMockNet
+namespace BenchmarkMockNet.Benchmarks
 {
     public class VerifyOnly : IMockingBenchmark
     {
@@ -24,7 +24,7 @@ namespace BenchmarkMockNet
             sub = Substitute.For<IThingy>();
             sub.DoSomething();
 
-            fake = A.Fake<IThingy>();
+            fake = new Fake<IThingy>().FakedObject;
             fake.DoSomething();
         }
 
@@ -35,21 +35,12 @@ namespace BenchmarkMockNet
         }
 
         [Benchmark]
-        public void Moq()
-        {
-            mock.Verify(m => m.DoSomething(), Times.AtLeastOnce);
-        }
+        public void Moq() => mock.Verify(m => m.DoSomething(), Times.AtLeastOnce);
 
         [Benchmark]
-        public void NSubstitute()
-        {
-            sub.Received().DoSomething();
-        }
+        public void NSubstitute() => sub.Received().DoSomething();
 
         [Benchmark]
-        public void FakeItEasy()
-        {
-            A.CallTo(() => fake.DoSomething()).MustHaveHappened();
-        }
+        public void FakeItEasy() => A.CallTo(() => fake.DoSomething()).MustHaveHappened();
     }
 }
