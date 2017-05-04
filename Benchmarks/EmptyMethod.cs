@@ -2,6 +2,7 @@ using BenchmarkDotNet.Attributes;
 using FakeItEasy;
 using Moq;
 using NSubstitute;
+using Rocks;
 
 namespace BenchmarkMockNet.Benchmarks
 {
@@ -33,6 +34,12 @@ namespace BenchmarkMockNet.Benchmarks
         {
             var fake = A.Fake<IThingy>();
             fake.DoNothing();
+        }
+
+        [Benchmark]
+        public void Rocks()
+        {
+            Rock.Make<IThingy>().DoNothing();
         }
     }
 }

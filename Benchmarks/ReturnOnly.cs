@@ -2,6 +2,7 @@ using BenchmarkDotNet.Attributes;
 using FakeItEasy;
 using Moq;
 using NSubstitute;
+using Rocks;
 
 namespace BenchmarkMockNet.Benchmarks
 {
@@ -11,6 +12,7 @@ namespace BenchmarkMockNet.Benchmarks
         private readonly IThingy mock;
         private readonly IThingy sub;
         private readonly IThingy fake;
+        private readonly IThingy chunk;
 
         public ReturnOnly()
         {
@@ -26,6 +28,10 @@ namespace BenchmarkMockNet.Benchmarks
             var fakey = new Fake<IThingy>();
             fakey.CallsTo(f => f.One()).Returns(1);
             fake = fakey.FakedObject;
+
+            var rock = Rock.Create<IThingy>();
+            rock.Handle(r => r.One()).Returns(1);
+            chunk = rock.Make();
         }
 
         [Benchmark(Baseline = true)]
@@ -39,5 +45,8 @@ namespace BenchmarkMockNet.Benchmarks
 
         //[Benchmark]
         public int FakeItEasy() => fake.One();
+
+        [Benchmark]
+        public int Rocks() => chunk.One();
     }
 }
