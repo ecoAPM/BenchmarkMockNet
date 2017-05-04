@@ -2,6 +2,7 @@ using BenchmarkDotNet.Attributes;
 using FakeItEasy;
 using Moq;
 using NSubstitute;
+using Rocks;
 
 namespace BenchmarkMockNet.Benchmarks
 {
@@ -41,6 +42,17 @@ namespace BenchmarkMockNet.Benchmarks
             A.CallTo(() => fake.DoSomething()).Invokes(() => fake.Called = true);
             fake.DoSomething();
             return fake.Called;
+        }
+
+        [Benchmark]
+        public bool Rocks()
+        {
+            var called = false;
+            var rock = Rock.Create<IThingy>();
+            rock.Handle(r => r.DoSomething(), () => called = true);
+            var chunk = rock.Make();
+            chunk.DoSomething();
+            return called;
         }
     }
 }

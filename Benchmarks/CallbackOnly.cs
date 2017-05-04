@@ -2,6 +2,7 @@
 using FakeItEasy;
 using Moq;
 using NSubstitute;
+using Rocks;
 
 namespace BenchmarkMockNet.Benchmarks
 {
@@ -11,7 +12,9 @@ namespace BenchmarkMockNet.Benchmarks
         private readonly IThingy mock;
         private readonly IThingy sub;
         private readonly IThingy fake;
+        private readonly IThingy chunk;
         private bool mockCalled;
+        private bool rockCalled;
 
         public CallbackOnly()
         {
@@ -28,6 +31,10 @@ namespace BenchmarkMockNet.Benchmarks
             var fakey = new Fake<IThingy>();
             fakey.CallsTo(f => f.DoSomething()).Invokes(f => fake.Called = true);
             fake = fakey.FakedObject;
+
+            var rock = Rock.Create<IThingy>();
+            rock.Handle(r => r.DoSomething(), () => rockCalled = true);
+            chunk = rock.Make();
         }
 
         [Benchmark(Baseline = true)]
@@ -56,6 +63,13 @@ namespace BenchmarkMockNet.Benchmarks
         {
             fake.DoSomething();
             return fake.Called;
+        }
+
+        [Benchmark]
+        public bool Rocks()
+        {
+            chunk.DoSomething();
+            return rockCalled;
         }
     }
 }
