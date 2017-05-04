@@ -3,36 +3,36 @@ using FakeItEasy;
 using Moq;
 using NSubstitute;
 
-namespace BenchmarkMockNet
+namespace BenchmarkMockNet.Benchmarks
 {
-    public class EmptyReturn : IMockingBenchmark<int>
+    public class EmptyMethod : IMockingBenchmark
     {
         [Benchmark(Baseline = true)]
-        public int Stub()
+        public void Stub()
         {
             var stub = new ThingStub();
-            return stub.One();
+            stub.DoNothing();
         }
 
         [Benchmark]
-        public int Moq()
+        public void Moq()
         {
             var mock = new Mock<IThingy>();
-            return mock.Object.One();
+            mock.Object.DoNothing();
         }
 
         [Benchmark]
-        public int NSubstitute()
+        public void NSubstitute()
         {
             var sub = Substitute.For<IThingy>();
-            return sub.One();
+            sub.DoNothing();
         }
 
         [Benchmark]
-        public int FakeItEasy()
+        public void FakeItEasy()
         {
             var fake = A.Fake<IThingy>();
-            return fake.One();
+            fake.DoNothing();
         }
     }
 }

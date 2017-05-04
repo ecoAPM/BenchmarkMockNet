@@ -3,39 +3,44 @@ using FakeItEasy;
 using Moq;
 using NSubstitute;
 
-namespace BenchmarkMockNet
+namespace BenchmarkMockNet.Benchmarks
 {
-    public class Callback : IMockingBenchmark
+    public class Callback : IMockingBenchmark<bool>
     {
         [Benchmark(Baseline = true)]
-        public void Stub()
+        public bool Stub()
         {
             var stub = new ThingStub();
             stub.DoSomething();
+            return stub.Called;
         }
 
         [Benchmark]
-        public void Moq()
+        public bool Moq()
         {
-            var mock = new Mock<IThingy>();
-            mock.Setup(m => m.DoSomething()).Callback(() => mock.Object.Called = true);
-            mock.Object.DoSomething();
+            var called = false;
+            var mockSetup = new Mock<IThingy>();
+            mockSetup.Setup(m => m.DoSomething()).Callback(() => called = true);
+            mockSetup.Object.DoSomething();
+            return called;
         }
 
         [Benchmark]
-        public void NSubstitute()
+        public bool NSubstitute()
         {
             var sub = Substitute.For<IThingy>();
             sub.When(s => s.DoSomething()).Do(c => sub.Called = true);
             sub.DoSomething();
+            return sub.Called;
         }
 
         [Benchmark]
-        public void FakeItEasy()
+        public bool FakeItEasy()
         {
             var fake = A.Fake<IThingy>();
             A.CallTo(() => fake.DoSomething()).Invokes(() => fake.Called = true);
             fake.DoSomething();
+            return fake.Called;
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿using BenchmarkDotNet.Running;
+﻿using System;
+using BenchmarkDotNet.Running;
+using BenchmarkMockNet.Benchmarks;
 
 namespace BenchmarkMockNet
 {
@@ -6,6 +8,8 @@ namespace BenchmarkMockNet
     {
         public static void Main(string[] args)
         {
+            new BenchmarkTests().RunAll();
+
             new BenchmarkSwitcher(new[] {
                 typeof(Construction),
                 typeof(Callback),
