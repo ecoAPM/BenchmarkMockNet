@@ -1,19 +1,18 @@
-using System;
 using BenchmarkDotNet.Attributes;
 using FakeItEasy;
 using Moq;
 using NSubstitute;
 
-namespace BenchmarkMockNet
+namespace BenchmarkMockNet.Benchmarks
 {
-    public class EmptyMethodOnly : IMockingBenchmark
+    public class EmptyReturnOnly : IMockingBenchmark<int>
     {
         private readonly IThingy stub;
         private readonly IThingy mock;
         private readonly IThingy sub;
         private readonly IThingy fake;
 
-        public EmptyMethodOnly()
+        public EmptyReturnOnly()
         {
             stub = new ThingStub();
             mock = new Mock<IThingy>().Object;
@@ -22,15 +21,15 @@ namespace BenchmarkMockNet
         }
 
         [Benchmark(Baseline = true)]
-        public void Stub() => stub.DoNothing();
+        public int Stub() => stub.Zero();
 
         [Benchmark]
-        public void Moq() => mock.DoNothing();
+        public int Moq() => mock.Zero();
 
         [Benchmark]
-        public void NSubstitute() => sub.DoNothing();
+        public int NSubstitute() => sub.Zero();
 
         //[Benchmark]
-        public void FakeItEasy() => fake.DoNothing();
+        public int FakeItEasy() => fake.Zero();
     }
 }

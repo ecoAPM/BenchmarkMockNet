@@ -1,24 +1,25 @@
-﻿using System;
-using BenchmarkDotNet.Attributes;
+﻿using BenchmarkDotNet.Attributes;
 using FakeItEasy;
 using Moq;
 using NSubstitute;
 
-namespace BenchmarkMockNet
+namespace BenchmarkMockNet.Benchmarks
 {
-    public class CallbackOnly : IMockingBenchmark
+    public class CallbackOnly : IMockingBenchmark<bool>
     {
         private readonly IThingy stub;
         private readonly IThingy mock;
         private readonly IThingy sub;
         private readonly IThingy fake;
+        private bool mockCalled;
 
         public CallbackOnly()
         {
             stub = new ThingStub();
 
+            mockCalled = false;
             var mockSetup = new Mock<IThingy>();
-            mockSetup.Setup(m => m.DoSomething()).Callback(() => mockSetup.Object.Called = true);
+            mockSetup.Setup(m => m.DoSomething()).Callback(() => mockCalled = true);
             mock = mockSetup.Object;
 
             sub = Substitute.For<IThingy>();
@@ -30,15 +31,31 @@ namespace BenchmarkMockNet
         }
 
         [Benchmark(Baseline = true)]
-        public void Stub() => stub.DoSomething();
+        public bool Stub()
+        {
+            stub.DoSomething();
+            return stub.Called;
+        }
 
         [Benchmark]
-        public void Moq() => mock.DoSomething();
+        public bool Moq()
+        {
+            mock.DoSomething();
+            return mockCalled;
+        }
 
         [Benchmark]
-        public void NSubstitute() => sub.DoSomething();
+        public bool NSubstitute()
+        {
+            sub.DoSomething();
+            return sub.Called;
+        }
 
         //[Benchmark]
-        public void FakeItEasy() => fake.DoSomething();
+        public bool FakeItEasy()
+        {
+            fake.DoSomething();
+            return fake.Called;
+        }
     }
 }

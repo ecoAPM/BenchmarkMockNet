@@ -4,7 +4,7 @@ using FakeItEasy;
 using Moq;
 using NSubstitute;
 
-namespace BenchmarkMockNet
+namespace BenchmarkMockNet.Benchmarks
 {
     public class VerifyOnly : IMockingBenchmark
     {
