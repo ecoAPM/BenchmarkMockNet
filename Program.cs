@@ -18,7 +18,7 @@ namespace BenchmarkMockNet
                 typeof(EmptyReturnOnly),
                 typeof(ReturnOnly),
                 typeof(VerifyOnly)
-            }).Run();
+            }).RunAll();
         }
     }
 }
