@@ -15,6 +15,12 @@ namespace BenchmarkMockNet.Benchmarks
         }
 
         [Benchmark]
+        public IThingy FakeItEasy()
+        {
+            return A.Fake<IThingy>();
+        }
+
+        [Benchmark]
         public IThingy Moq()
         {
             return new Mock<IThingy>().Object;
@@ -27,15 +33,9 @@ namespace BenchmarkMockNet.Benchmarks
         }
 
         [Benchmark]
-        public IThingy FakeItEasy()
-        {
-            return A.Fake<IThingy>();
-        }
-
-        [Benchmark]
         public IThingy Rocks()
         {
-            return Rock.Create<IThingy>().Make();
+            return Rock.Make<IThingy>();
         }
     }
 }

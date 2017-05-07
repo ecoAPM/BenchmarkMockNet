@@ -16,6 +16,13 @@ namespace BenchmarkMockNet.Benchmarks
         }
 
         [Benchmark]
+        public int FakeItEasy()
+        {
+            var fake = A.Fake<IThingy>();
+            return fake.Zero();
+        }
+
+        [Benchmark]
         public int Moq()
         {
             var mock = new Mock<IThingy>();
@@ -27,13 +34,6 @@ namespace BenchmarkMockNet.Benchmarks
         {
             var sub = Substitute.For<IThingy>();
             return sub.Zero();
-        }
-
-        [Benchmark]
-        public int FakeItEasy()
-        {
-            var fake = A.Fake<IThingy>();
-            return fake.Zero();
         }
 
         [Benchmark]

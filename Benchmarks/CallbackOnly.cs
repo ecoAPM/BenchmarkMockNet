@@ -8,29 +8,29 @@ namespace BenchmarkMockNet.Benchmarks
 {
     public class CallbackOnly : IMockingBenchmark<bool>
     {
-        private readonly IThingy stub;
+        private readonly ThingStub stub;
+        private readonly IThingy fake;
         private readonly IThingy mock;
         private readonly IThingy sub;
-        private readonly IThingy fake;
         private readonly IThingy chunk;
+        private bool fakeCalled;
         private bool mockCalled;
+        private bool subCalled;
         private bool rockCalled;
 
         public CallbackOnly()
         {
             stub = new ThingStub();
 
-            mockCalled = false;
+            fake = A.Fake<IThingy>();
+            A.CallTo(() => fake.DoSomething()).Invokes(f => fakeCalled = true);
+
             var mockSetup = new Mock<IThingy>();
             mockSetup.Setup(m => m.DoSomething()).Callback(() => mockCalled = true);
             mock = mockSetup.Object;
 
             sub = Substitute.For<IThingy>();
-            sub.When(s => s.DoSomething()).Do(c => sub.Called = true);
-
-            var fakey = new Fake<IThingy>();
-            fakey.CallsTo(f => f.DoSomething()).Invokes(f => fake.Called = true);
-            fake = fakey.FakedObject;
+            sub.When(s => s.DoSomething()).Do(c => subCalled = true);
 
             var rock = Rock.Create<IThingy>();
             rock.Handle(r => r.DoSomething(), () => rockCalled = true);
@@ -40,13 +40,23 @@ namespace BenchmarkMockNet.Benchmarks
         [Benchmark(Baseline = true)]
         public bool Stub()
         {
+            stub.Called = false;
             stub.DoSomething();
             return stub.Called;
+        }
+
+        //[Benchmark]
+        public bool FakeItEasy()
+        {
+            fakeCalled = false;
+            fake.DoSomething();
+            return fakeCalled;
         }
 
         [Benchmark]
         public bool Moq()
         {
+            mockCalled = false;
             mock.DoSomething();
             return mockCalled;
         }
@@ -54,20 +64,15 @@ namespace BenchmarkMockNet.Benchmarks
         [Benchmark]
         public bool NSubstitute()
         {
+            subCalled = false;
             sub.DoSomething();
-            return sub.Called;
-        }
-
-        //[Benchmark]
-        public bool FakeItEasy()
-        {
-            fake.DoSomething();
-            return fake.Called;
+            return subCalled;
         }
 
         [Benchmark]
         public bool Rocks()
         {
+            rockCalled = false;
             chunk.DoSomething();
             return rockCalled;
         }

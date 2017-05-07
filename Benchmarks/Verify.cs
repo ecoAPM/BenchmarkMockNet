@@ -18,6 +18,14 @@ namespace BenchmarkMockNet.Benchmarks
         }
 
         [Benchmark]
+        public void FakeItEasy()
+        {
+            var fake = A.Fake<IThingy>();
+            fake.DoSomething();
+            A.CallTo(() => fake.DoSomething()).MustHaveHappened();
+        }
+
+        [Benchmark]
         public void Moq()
         {
             var mock = new Mock<IThingy>();
@@ -31,14 +39,6 @@ namespace BenchmarkMockNet.Benchmarks
             var sub = Substitute.For<IThingy>();
             sub.DoSomething();
             sub.Received().DoSomething();
-        }
-
-        [Benchmark]
-        public void FakeItEasy()
-        {
-            var fake = A.Fake<IThingy>();
-            fake.DoSomething();
-            A.CallTo(() => fake.DoSomething()).MustHaveHappened();
         }
 
         [Benchmark]

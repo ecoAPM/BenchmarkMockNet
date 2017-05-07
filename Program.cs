@@ -1,5 +1,4 @@
-﻿using System;
-using BenchmarkDotNet.Running;
+﻿using BenchmarkDotNet.Running;
 using BenchmarkMockNet.Benchmarks;
 
 namespace BenchmarkMockNet
