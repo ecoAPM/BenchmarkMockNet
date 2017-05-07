@@ -124,10 +124,10 @@ The creation of the mock object and its method setup are done outside the benchm
 
  |      Method |          Mean |      Error |     StdDev | Scaled | ScaledSD |
  |------------ |--------------:|-----------:|-----------:|-------:|---------:|
- |        Stub |     0.0000 ns |  0.0000 ns |  0.0000 ns |      ? |        ? |
- |         Moq |   935.6888 ns | 17.4571 ns | 17.9272 ns |      ? |        ? |
- | NSubstitute | 4,809.8186 ns | 78.2166 ns | 69.3369 ns |      ? |        ? |
- |       Rocks |    38.5109 ns |  0.7128 ns |  0.6667 ns |      ? |        ? |
+ |        Stub |     0.0018 ns |  0.0045 ns |  0.0042 ns |      ? |        ? |
+ |         Moq |   944.0906 ns | 18.7783 ns | 24.4171 ns |      ? |        ? |
+ | NSubstitute | 4,807.7543 ns | 49.6466 ns | 46.4395 ns |      ? |        ? |
+ |       Rocks |    37.8624 ns |  0.0966 ns |  0.0857 ns |      ? |        ? |
 
 #### EmptyMethodOnly
 
