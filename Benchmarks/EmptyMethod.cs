@@ -16,6 +16,13 @@ namespace BenchmarkMockNet.Benchmarks
         }
 
         [Benchmark]
+        public void FakeItEasy()
+        {
+            var fake = A.Fake<IThingy>();
+            fake.DoNothing();
+        }
+
+        [Benchmark]
         public void Moq()
         {
             var mock = new Mock<IThingy>();
@@ -30,16 +37,10 @@ namespace BenchmarkMockNet.Benchmarks
         }
 
         [Benchmark]
-        public void FakeItEasy()
-        {
-            var fake = A.Fake<IThingy>();
-            fake.DoNothing();
-        }
-
-        [Benchmark]
         public void Rocks()
         {
-            Rock.Make<IThingy>().DoNothing();
+            var chunk = Rock.Make<IThingy>();
+            chunk.DoNothing();
         }
     }
 }

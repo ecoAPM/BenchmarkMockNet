@@ -16,6 +16,14 @@ namespace BenchmarkMockNet.Benchmarks
         }
 
         [Benchmark]
+        public int FakeItEasy()
+        {
+            var fake = A.Fake<IThingy>();
+            A.CallTo(() => fake.One()).Returns(1);
+            return fake.One();
+        }
+
+        [Benchmark]
         public int Moq()
         {
             var mock = new Mock<IThingy>();
@@ -29,14 +37,6 @@ namespace BenchmarkMockNet.Benchmarks
             var sub = Substitute.For<IThingy>();
             sub.One().Returns(1);
             return sub.One();
-        }
-
-        [Benchmark]
-        public int FakeItEasy()
-        {
-            var fake = A.Fake<IThingy>();
-            A.CallTo(() => fake.One()).Returns(1);
-            return fake.One();
         }
 
         [Benchmark]

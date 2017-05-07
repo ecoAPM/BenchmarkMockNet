@@ -9,10 +9,10 @@ namespace BenchmarkMockNet.Benchmarks
 {
     public class VerifyOnly : IMockingBenchmark
     {
-        private readonly IThingy stub;
+        private readonly ThingStub stub;
+        private readonly IThingy fake;
         private readonly Mock<IThingy> mock;
         private readonly IThingy sub;
-        private readonly IThingy fake;
         private readonly IRock<IThingy> rock;
 
         public VerifyOnly()
@@ -20,14 +20,14 @@ namespace BenchmarkMockNet.Benchmarks
             stub = new ThingStub();
             stub.DoSomething();
 
+            fake = A.Fake<IThingy>();
+            fake.DoSomething();
+
             mock = new Mock<IThingy>();
             mock.Object.DoSomething();
 
             sub = Substitute.For<IThingy>();
             sub.DoSomething();
-
-            fake = new Fake<IThingy>().FakedObject;
-            fake.DoSomething();
 
             rock = Rock.Create<IThingy>();
             rock.Handle(r => r.DoSomething());
@@ -41,13 +41,13 @@ namespace BenchmarkMockNet.Benchmarks
         }
 
         [Benchmark]
+        public void FakeItEasy() => A.CallTo(() => fake.DoSomething()).MustHaveHappened();
+
+        [Benchmark]
         public void Moq() => mock.Verify(m => m.DoSomething(), Times.AtLeastOnce);
 
         [Benchmark]
         public void NSubstitute() => sub.Received().DoSomething();
-
-        [Benchmark]
-        public void FakeItEasy() => A.CallTo(() => fake.DoSomething()).MustHaveHappened();
 
         [Benchmark]
         public void Rocks() => rock.Verify();

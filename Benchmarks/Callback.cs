@@ -17,31 +17,34 @@ namespace BenchmarkMockNet.Benchmarks
         }
 
         [Benchmark]
+        public bool FakeItEasy()
+        {
+            var called = false;
+            var fake = A.Fake<IThingy>();
+            A.CallTo(() => fake.DoSomething()).Invokes(() => called = true);
+            fake.DoSomething();
+            return called;
+        }
+
+        [Benchmark]
         public bool Moq()
         {
             var called = false;
             var mockSetup = new Mock<IThingy>();
+            var mock = mockSetup.Object;
             mockSetup.Setup(m => m.DoSomething()).Callback(() => called = true);
-            mockSetup.Object.DoSomething();
+            mock.DoSomething();
             return called;
         }
 
         [Benchmark]
         public bool NSubstitute()
         {
+            var called = false;
             var sub = Substitute.For<IThingy>();
-            sub.When(s => s.DoSomething()).Do(c => sub.Called = true);
+            sub.When(s => s.DoSomething()).Do(c => called = true);
             sub.DoSomething();
-            return sub.Called;
-        }
-
-        [Benchmark]
-        public bool FakeItEasy()
-        {
-            var fake = A.Fake<IThingy>();
-            A.CallTo(() => fake.DoSomething()).Invokes(() => fake.Called = true);
-            fake.DoSomething();
-            return fake.Called;
+            return called;
         }
 
         [Benchmark]
