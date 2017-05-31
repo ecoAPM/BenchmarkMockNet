@@ -40,6 +40,14 @@ namespace BenchmarkMockNet.Benchmarks
         }
 
         [Benchmark]
+        public int PCLMock()
+        {
+            var mock = new ThingyMock();
+            mock.When(x => x.One()).Return(1);
+            return mock.One();
+        }
+
+        [Benchmark]
         public int Rocks()
         {
             var rock = Rock.Create<IThingy>();

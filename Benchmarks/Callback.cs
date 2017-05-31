@@ -48,6 +48,16 @@ namespace BenchmarkMockNet.Benchmarks
         }
 
         [Benchmark]
+        public bool PCLMock()
+        {
+            var called = false;
+            var mock = new ThingyMock();
+            mock.When(x => x.DoSomething()).Do(() => called = true);
+            mock.DoSomething();
+            return called;
+        }
+
+        [Benchmark]
         public bool Rocks()
         {
             var called = false;

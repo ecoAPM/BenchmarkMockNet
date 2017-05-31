@@ -37,6 +37,13 @@ namespace BenchmarkMockNet.Benchmarks
         }
 
         [Benchmark]
+        public void PCLMock()
+        {
+            var mock = new ThingyMock();
+            mock.DoNothing();
+        }
+
+        [Benchmark]
         public void Rocks()
         {
             var chunk = Rock.Make<IThingy>();

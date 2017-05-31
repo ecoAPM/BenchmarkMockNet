@@ -33,6 +33,12 @@ namespace BenchmarkMockNet.Benchmarks
         }
 
         [Benchmark]
+        public IThingy PCLMock()
+        {
+            return new ThingyMock();
+        }
+
+        [Benchmark]
         public IThingy Rocks()
         {
             return Rock.Make<IThingy>();

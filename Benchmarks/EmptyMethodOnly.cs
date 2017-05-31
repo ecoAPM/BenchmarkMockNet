@@ -11,6 +11,7 @@ namespace BenchmarkMockNet.Benchmarks
         private readonly IThingy stub;
         private readonly IThingy fake;
         private readonly IThingy mock;
+        private readonly IThingy pclMock;
         private readonly IThingy sub;
         private readonly IThingy chunk;
 
@@ -19,6 +20,7 @@ namespace BenchmarkMockNet.Benchmarks
             stub = new ThingStub();
             fake = A.Fake<IThingy>();
             mock = new Mock<IThingy>().Object;
+            pclMock = new ThingyMock();
             sub = Substitute.For<IThingy>();
             chunk = Rock.Make<IThingy>();
         }
@@ -34,6 +36,9 @@ namespace BenchmarkMockNet.Benchmarks
 
         [Benchmark]
         public void NSubstitute() => sub.DoNothing();
+
+        [Benchmark]
+        public void PCLMock() => pclMock.DoNothing();
 
         [Benchmark]
         public void Rocks() => chunk.DoNothing();
