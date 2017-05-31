@@ -42,6 +42,14 @@ namespace BenchmarkMockNet.Benchmarks
         }
 
         [Benchmark]
+        public void PCLMock()
+        {
+            var mock = new ThingyMock();
+            mock.DoSomething();
+            mock.Verify(x => x.DoSomething()).WasCalledExactlyOnce();
+        }
+
+        [Benchmark]
         public void Rocks()
         {
             var rock = Rock.Create<IThingy>();

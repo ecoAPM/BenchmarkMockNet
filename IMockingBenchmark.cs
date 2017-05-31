@@ -6,6 +6,7 @@
         T Moq();
         T NSubstitute();
         T FakeItEasy();
+        T PCLMock();
         T Rocks();
     }
 
@@ -15,6 +16,7 @@
         void Moq();
         void NSubstitute();
         void FakeItEasy();
+        void PCLMock();
         void Rocks();
     }
 }

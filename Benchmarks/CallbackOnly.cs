@@ -11,10 +11,12 @@ namespace BenchmarkMockNet.Benchmarks
         private readonly ThingStub stub;
         private readonly IThingy fake;
         private readonly IThingy mock;
+        private readonly IThingy pclMock;
         private readonly IThingy sub;
         private readonly IThingy chunk;
         private bool fakeCalled;
         private bool mockCalled;
+        private bool pclmockCalled;
         private bool subCalled;
         private bool rockCalled;
 
@@ -28,6 +30,10 @@ namespace BenchmarkMockNet.Benchmarks
             var mockSetup = new Mock<IThingy>();
             mockSetup.Setup(m => m.DoSomething()).Callback(() => mockCalled = true);
             mock = mockSetup.Object;
+
+            var pclMock = new ThingyMock();
+            pclMock.When(x => x.DoSomething()).Do(() => pclmockCalled = true);
+            this.pclMock = pclMock;
 
             sub = Substitute.For<IThingy>();
             sub.When(s => s.DoSomething()).Do(c => subCalled = true);
@@ -67,6 +73,14 @@ namespace BenchmarkMockNet.Benchmarks
             subCalled = false;
             sub.DoSomething();
             return subCalled;
+        }
+
+        [Benchmark]
+        public bool PCLMock()
+        {
+            pclmockCalled = false;
+            pclMock.DoSomething();
+            return pclmockCalled;
         }
 
         [Benchmark]

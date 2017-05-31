@@ -10,6 +10,7 @@ namespace BenchmarkMockNet.Benchmarks
     {
         private readonly IThingy stub;
         private readonly IThingy mock;
+        private readonly IThingy pclMock;
         private readonly IThingy sub;
         private readonly IThingy fake;
         private readonly IThingy chunk;
@@ -24,6 +25,10 @@ namespace BenchmarkMockNet.Benchmarks
             var mockSetup = new Mock<IThingy>();
             mockSetup.Setup(m => m.One()).Returns(1);
             mock = mockSetup.Object;
+
+            var pclMock = new ThingyMock();
+            pclMock.When(x => x.One()).Return(1);
+            this.pclMock = pclMock;
 
             sub = Substitute.For<IThingy>();
             sub.One().Returns(1);
@@ -44,6 +49,9 @@ namespace BenchmarkMockNet.Benchmarks
 
         [Benchmark]
         public int NSubstitute() => sub.One();
+
+        [Benchmark]
+        public int PCLMock() => pclMock.One();
 
         [Benchmark]
         public int Rocks() => chunk.One();

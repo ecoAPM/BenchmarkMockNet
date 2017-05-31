@@ -28,6 +28,7 @@ namespace BenchmarkMockNet
             Test(benchmark.GetType().Name, "Stub", () => benchmark.Stub().Equals(expected));
             Test(benchmark.GetType().Name, "Moq", () => benchmark.Moq().Equals(expected));
             Test(benchmark.GetType().Name, "NSubstitute", () => benchmark.NSubstitute().Equals(expected));
+            Test(benchmark.GetType().Name, "PCLMock", () => benchmark.PCLMock().Equals(expected));
             Test(benchmark.GetType().Name, "FakeItEasy", () => benchmark.FakeItEasy().Equals(expected));
             Test(benchmark.GetType().Name, "Rocks", () => benchmark.Rocks().Equals(expected));
         }
@@ -43,6 +44,7 @@ namespace BenchmarkMockNet
             Test(benchmark.GetType().Name, "Stub", () => benchmark.Stub() is IThingy);
             Test(benchmark.GetType().Name, "Moq", () => benchmark.Moq() is IThingy);
             Test(benchmark.GetType().Name, "NSubstitute", () => benchmark.NSubstitute() is IThingy);
+            Test(benchmark.GetType().Name, "PCLMock", () => benchmark.PCLMock() is IThingy);
             Test(benchmark.GetType().Name, "FakeItEasy", () => benchmark.FakeItEasy() is IThingy);
             Test(benchmark.GetType().Name, "Rocks", () => benchmark.Rocks() is IThingy);
         }
@@ -52,6 +54,7 @@ namespace BenchmarkMockNet
             benchmark.Stub();
             benchmark.Moq();
             benchmark.NSubstitute();
+            benchmark.PCLMock();
             benchmark.FakeItEasy();
             benchmark.Rocks();
         }

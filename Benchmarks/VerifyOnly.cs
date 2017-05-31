@@ -12,6 +12,7 @@ namespace BenchmarkMockNet.Benchmarks
         private readonly ThingStub stub;
         private readonly IThingy fake;
         private readonly Mock<IThingy> mock;
+        private readonly ThingyMock pclMock;
         private readonly IThingy sub;
         private readonly IRock<IThingy> rock;
 
@@ -25,6 +26,9 @@ namespace BenchmarkMockNet.Benchmarks
 
             mock = new Mock<IThingy>();
             mock.Object.DoSomething();
+
+            pclMock = new ThingyMock();
+            pclMock.DoSomething();
 
             sub = Substitute.For<IThingy>();
             sub.DoSomething();
@@ -48,6 +52,9 @@ namespace BenchmarkMockNet.Benchmarks
 
         [Benchmark]
         public void NSubstitute() => sub.Received().DoSomething();
+
+        [Benchmark]
+        public void PCLMock() => pclMock.Verify(x => x.DoSomething()).WasCalledExactlyOnce();
 
         [Benchmark]
         public void Rocks() => rock.Verify();
