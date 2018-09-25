@@ -5,6 +5,9 @@ namespace BenchmarkMockNet
 {
     public static class Program
     {
+        public const int InvocationCount = 1_000_000;
+        public const int TargetCount = 5;
+
         public static void Main(string[] args)
         {
             new BenchmarkTests().RunAll();

@@ -6,38 +6,38 @@ using Rocks;
 
 namespace BenchmarkMockNet.Benchmarks
 {
-    public class EmptyMethod : IMockingBenchmark
+    public class EmptyMethod : MockingBenchmark
     {
         [Benchmark(Baseline = true)]
-        public void Stub()
+        public override void Stub()
         {
             var stub = new ThingStub();
             stub.DoNothing();
         }
 
         [Benchmark]
-        public void FakeItEasy()
+        public override void FakeItEasy()
         {
             var fake = A.Fake<IThingy>();
             fake.DoNothing();
         }
 
         [Benchmark]
-        public void Moq()
+        public override void Moq()
         {
             var mock = new Mock<IThingy>();
             mock.Object.DoNothing();
         }
 
         [Benchmark]
-        public void NSubstitute()
+        public override void NSubstitute()
         {
             var sub = Substitute.For<IThingy>();
             sub.DoNothing();
         }
 
         [Benchmark]
-        public void Rocks()
+        public override void Rocks()
         {
             var chunk = Rock.Make<IThingy>();
             chunk.DoNothing();

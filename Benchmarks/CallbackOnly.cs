@@ -6,7 +6,7 @@ using Rocks;
 
 namespace BenchmarkMockNet.Benchmarks
 {
-    public class CallbackOnly : IMockingBenchmark<bool>
+    public class CallbackOnly : MockingBenchmark<bool>
     {
         private readonly ThingStub stub;
         private readonly IThingy fake;
@@ -38,15 +38,15 @@ namespace BenchmarkMockNet.Benchmarks
         }
 
         [Benchmark(Baseline = true)]
-        public bool Stub()
+        public override bool Stub()
         {
             stub.Called = false;
             stub.DoSomething();
             return stub.Called;
         }
 
-        //[Benchmark]
-        public bool FakeItEasy()
+        [Benchmark]
+        public override bool FakeItEasy()
         {
             fakeCalled = false;
             fake.DoSomething();
@@ -54,7 +54,7 @@ namespace BenchmarkMockNet.Benchmarks
         }
 
         [Benchmark]
-        public bool Moq()
+        public override bool Moq()
         {
             mockCalled = false;
             mock.DoSomething();
@@ -62,7 +62,7 @@ namespace BenchmarkMockNet.Benchmarks
         }
 
         [Benchmark]
-        public bool NSubstitute()
+        public override bool NSubstitute()
         {
             subCalled = false;
             sub.DoSomething();
@@ -70,7 +70,7 @@ namespace BenchmarkMockNet.Benchmarks
         }
 
         [Benchmark]
-        public bool Rocks()
+        public override bool Rocks()
         {
             rockCalled = false;
             chunk.DoSomething();

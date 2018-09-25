@@ -4,13 +4,14 @@ using FakeItEasy;
 using Moq;
 using NSubstitute;
 using Rocks;
+using Times = Moq.Times;
 
 namespace BenchmarkMockNet.Benchmarks
 {
-    public class Verify : IMockingBenchmark
+    public class Verify : MockingBenchmark
     {
         [Benchmark(Baseline = true)]
-        public void Stub()
+        public override void Stub()
         {
             var stub = new ThingStub();
             stub.DoSomething();
@@ -18,7 +19,7 @@ namespace BenchmarkMockNet.Benchmarks
         }
 
         [Benchmark]
-        public void FakeItEasy()
+        public override void FakeItEasy()
         {
             var fake = A.Fake<IThingy>();
             fake.DoSomething();
@@ -26,7 +27,7 @@ namespace BenchmarkMockNet.Benchmarks
         }
 
         [Benchmark]
-        public void Moq()
+        public override void Moq()
         {
             var mock = new Mock<IThingy>();
             mock.Object.DoSomething();
@@ -34,7 +35,7 @@ namespace BenchmarkMockNet.Benchmarks
         }
 
         [Benchmark]
-        public void NSubstitute()
+        public override void NSubstitute()
         {
             var sub = Substitute.For<IThingy>();
             sub.DoSomething();
@@ -42,7 +43,7 @@ namespace BenchmarkMockNet.Benchmarks
         }
 
         [Benchmark]
-        public void Rocks()
+        public override void Rocks()
         {
             var rock = Rock.Create<IThingy>();
             rock.Handle(r => r.DoSomething());

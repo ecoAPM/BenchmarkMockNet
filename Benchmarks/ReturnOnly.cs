@@ -6,7 +6,7 @@ using Rocks;
 
 namespace BenchmarkMockNet.Benchmarks
 {
-    public class ReturnOnly : IMockingBenchmark<int>
+    public class ReturnOnly : MockingBenchmark<int>
     {
         private readonly IThingy stub;
         private readonly IThingy mock;
@@ -34,18 +34,18 @@ namespace BenchmarkMockNet.Benchmarks
         }
 
         [Benchmark(Baseline = true)]
-        public int Stub() => stub.One();
-
-        //[Benchmark]
-        public int FakeItEasy() => fake.One();
+        public override int Stub() => stub.One();
 
         [Benchmark]
-        public int Moq() => mock.One();
+        public override int FakeItEasy() => fake.One();
 
         [Benchmark]
-        public int NSubstitute() => sub.One();
+        public override int Moq() => mock.One();
 
         [Benchmark]
-        public int Rocks() => chunk.One();
+        public override int NSubstitute() => sub.One();
+
+        [Benchmark]
+        public override int Rocks() => chunk.One();
     }
 }

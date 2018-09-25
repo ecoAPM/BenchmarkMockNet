@@ -6,17 +6,17 @@ using Rocks;
 
 namespace BenchmarkMockNet.Benchmarks
 {
-    public class Return : IMockingBenchmark<int>
+    public class Return : MockingBenchmark<int>
     {
         [Benchmark(Baseline = true)]
-        public int Stub()
+        public override int Stub()
         {
             var stub = new ThingStub();
             return stub.One();
         }
 
         [Benchmark]
-        public int FakeItEasy()
+        public override int FakeItEasy()
         {
             var fake = A.Fake<IThingy>();
             A.CallTo(() => fake.One()).Returns(1);
@@ -24,7 +24,7 @@ namespace BenchmarkMockNet.Benchmarks
         }
 
         [Benchmark]
-        public int Moq()
+        public override int Moq()
         {
             var mock = new Mock<IThingy>();
             mock.Setup(m => m.One()).Returns(1);
@@ -32,7 +32,7 @@ namespace BenchmarkMockNet.Benchmarks
         }
 
         [Benchmark]
-        public int NSubstitute()
+        public override int NSubstitute()
         {
             var sub = Substitute.For<IThingy>();
             sub.One().Returns(1);
@@ -40,7 +40,7 @@ namespace BenchmarkMockNet.Benchmarks
         }
 
         [Benchmark]
-        public int Rocks()
+        public override int Rocks()
         {
             var rock = Rock.Create<IThingy>();
             rock.Handle(r => r.One()).Returns(1);
