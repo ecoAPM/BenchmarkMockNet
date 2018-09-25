@@ -4,10 +4,11 @@ using FakeItEasy;
 using Moq;
 using NSubstitute;
 using Rocks;
+using Times = Moq.Times;
 
 namespace BenchmarkMockNet.Benchmarks
 {
-    public class VerifyOnly : IMockingBenchmark
+    public class VerifyOnly : MockingBenchmark
     {
         private readonly ThingStub stub;
         private readonly IThingy fake;
@@ -35,21 +36,21 @@ namespace BenchmarkMockNet.Benchmarks
         }
 
         [Benchmark(Baseline = true)]
-        public void Stub()
+        public override void Stub()
         {
             if (!stub.Called) throw new Exception();
         }
 
         [Benchmark]
-        public void FakeItEasy() => A.CallTo(() => fake.DoSomething()).MustHaveHappened();
+        public override void FakeItEasy() => A.CallTo(() => fake.DoSomething()).MustHaveHappened();
 
         [Benchmark]
-        public void Moq() => mock.Verify(m => m.DoSomething(), Times.AtLeastOnce);
+        public override void Moq() => mock.Verify(m => m.DoSomething(), Times.AtLeastOnce);
 
         [Benchmark]
-        public void NSubstitute() => sub.Received().DoSomething();
+        public override void NSubstitute() => sub.Received().DoSomething();
 
         [Benchmark]
-        public void Rocks() => rock.Verify();
+        public override void Rocks() => rock.Verify();
     }
 }

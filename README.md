@@ -30,9 +30,7 @@ These tests cover standard mocking framework functionality
 
 Each test (other than construction, obviously) also has an "Only" version, where the mock is setup in the constructor, and only the method call itself is measured.
 
-This is more accurate when comparing against larger testing classes, where you have a fixture- or assembly-level setup, that doesn't get run with every test.
-
-Note that FakeItEasy fails all of these tests, its time growing linearly with each iteration over the method. This may be due to a FakeItEasy memory leak.
+This is more accurate when comparing against larger testing classes, where you have a fixture- or assembly-level setup that doesn't get run with every test.
 
  | Test                                         | How long does it take...                          |
  | -------------------------------------------- | ------------------------------------------------- |
@@ -42,7 +40,7 @@ Note that FakeItEasy fails all of these tests, its time growing linearly with ea
  | [ReturnOnly](README.md#returnonly)           | for an already set-up method to return?           |
  | [VerifyOnly](README.md#verifyonly)           | for an already set-up method to be verified?      |
 
-Want to add more? PRs welcome! Just add a new class implementing IMockingBenchmark or IMockingBenchmark<T> depending on what you're testing.
+Want to add more? PRs welcome! Just add a new class extending MockingBenchmark or MockingBenchmark<T>, depending on what you're testing.
 
 ### Results
 
@@ -50,126 +48,130 @@ Want to add more? PRs welcome! Just add a new class implementing IMockingBenchma
 
 This test simply creates an IThingy object to test using the given framework
 
- |      Method |         Mean |      Error |     StdDev |   Scaled | ScaledSD |
- |------------ |-------------:|-----------:|-----------:|---------:|---------:|
- |        Stub |     2.634 ns |  0.0308 ns |  0.0273 ns |     1.00 |     0.00 |
- |  FakeItEasy | 8,480.165 ns | 61.5024 ns | 54.5203 ns | 3,219.41 |    37.59 |
- |         Moq | 6,139.763 ns | 12.3983 ns | 10.9908 ns | 2,330.90 |    23.42 |
- | NSubstitute | 6,538.927 ns | 30.4356 ns | 28.4695 ns | 2,482.44 |    26.70 |
- |       Rocks | 3,396.038 ns | 10.4772 ns |  8.1799 ns | 1,289.27 |    13.10 |
+|      Method |          Mean |        Error |      StdDev |   Scaled | ScaledSD |
+|------------ |--------------:|-------------:|------------:|---------:|---------:|
+|        Stub |      6.659 ns |     2.764 ns |   0.7179 ns |     1.00 |     0.00 |
+|  FakeItEasy | 11,759.713 ns |   454.849 ns | 118.1454 ns | 1,780.79 |   154.90 |
+|         Moq |  4,438.464 ns |   244.415 ns |  63.4859 ns |   672.12 |    58.79 |
+| NSubstitute |  5,726.808 ns |   260.085 ns |  67.5561 ns |   867.22 |    75.59 |
+|       Rocks |  3,788.702 ns | 3,704.371 ns | 962.1967 ns |   573.73 |   139.91 |
 
- #### Callback
+#### Callback
 
- A mock object is created, a method setup with a callback, and that method called
+A mock object is created, a method setup with a callback, and that method called
 
- |      Method |           Mean |         Error |        StdDev |     Scaled | ScaledSD |
- |------------ |---------------:|--------------:|--------------:|-----------:|---------:|
- |        Stub |       2.308 ns |     0.0191 ns |     0.0169 ns |       1.00 |     0.00 |
- |  FakeItEasy |  46,608.652 ns |   573.1943 ns |   536.1663 ns |  20,198.94 |   265.47 |
- |         Moq | 276,662.731 ns | 1,289.5281 ns | 1,076.8143 ns | 119,898.22 |   953.13 |
- | NSubstitute |  16,657.810 ns |    47.0011 ns |    43.9649 ns |   7,219.05 |    53.88 |
- |       Rocks |   9,839.282 ns |   266.4347 ns |   612.1780 ns |   4,264.08 |   264.89 |
+|      Method |          Mean |        Error |        StdDev |   Scaled | ScaledSD |
+|------------ |--------------:|-------------:|--------------:|---------:|---------:|
+|        Stub |      5.253 ns |     2.547 ns |     0.6615 ns |     1.00 |     0.00 |
+|  FakeItEasy | 47,654.720 ns | 1,987.234 ns |   516.1767 ns | 9,174.62 |   913.74 |
+|         Moq |  8,770.916 ns |   394.929 ns |   102.5813 ns | 1,688.60 |   168.31 |
+| NSubstitute | 15,155.472 ns |   218.178 ns |    56.6710 ns | 2,917.78 |   289.37 |
+|       Rocks |  7,854.532 ns | 4,645.665 ns | 1,206.6942 ns | 1,512.18 |   257.03 |
 
 #### EmptyMethod
 
 A mock object is created, with no method setup, and a void method called
 
- |      Method |          Mean |       Error |      StdDev |   Scaled | ScaledSD |
- |------------ |--------------:|------------:|------------:|---------:|---------:|
- |        Stub |      2.582 ns |   0.0429 ns |   0.0402 ns |     1.00 |     0.00 |
- |  FakeItEasy | 15,355.419 ns | 300.2998 ns | 280.9006 ns | 5,948.07 |   137.27 |
- |         Moq |  7,375.027 ns | 135.5076 ns | 126.7539 ns | 2,856.79 |    63.62 |
- | NSubstitute | 12,780.400 ns | 207.5963 ns | 194.1857 ns | 4,950.61 |   103.34 |
- |       Rocks |  3,929.685 ns |  56.8768 ns |  53.2026 ns | 1,522.20 |    30.11 |
+|      Method |          Mean |         Error |      StdDev |    Scaled | ScaledSD |
+|------------ |--------------:|--------------:|------------:|----------:|---------:|
+|        Stub |      1.916 ns |     0.5551 ns |   0.1442 ns |      1.00 |     0.00 |
+|  FakeItEasy | 23,136.351 ns | 1,654.8670 ns | 429.8455 ns | 12,128.23 |   830.17 |
+|         Moq |  4,758.669 ns |   212.0068 ns |  55.0680 ns |  2,494.53 |   167.63 |
+| NSubstitute | 11,516.917 ns |   388.7963 ns | 100.9884 ns |  6,037.24 |   403.63 |
+|       Rocks |  3,757.167 ns | 3,720.3574 ns | 966.3490 ns |  1,969.53 |   472.54 |
 
 #### EmptyReturn
 
 A mock object is created, with no method setup, and an int method called
 
- |      Method |          Mean |       Error |      StdDev |   Scaled | ScaledSD |
- |------------ |--------------:|------------:|------------:|---------:|---------:|
- |        Stub |      2.808 ns |   0.0874 ns |   0.1361 ns |     1.00 |     0.00 |
- |  FakeItEasy | 16,340.198 ns | 107.9547 ns |  84.2839 ns | 5,832.94 |   274.10 |
- |         Moq |  8,124.206 ns | 138.2203 ns | 122.5287 ns | 2,900.09 |   141.94 |
- | NSubstitute | 13,830.083 ns | 265.4984 ns | 345.2229 ns | 4,936.91 |   260.40 |
- |       Rocks |  3,997.144 ns | 104.8586 ns | 120.7553 ns | 1,426.86 |    78.83 |
+|      Method |          Mean |         Error |      StdDev |    Scaled | ScaledSD |
+|------------ |--------------:|--------------:|------------:|----------:|---------:|
+|        Stub |      2.141 ns |     0.8435 ns |   0.2191 ns |      1.00 |     0.00 |
+|  FakeItEasy | 23,243.319 ns | 1,859.2916 ns | 482.9441 ns | 10,943.45 |   955.92 |
+|         Moq |  5,292.765 ns |   262.5680 ns |  68.2011 ns |  2,491.95 |   214.60 |
+| NSubstitute | 12,617.985 ns |   322.2223 ns |  83.6960 ns |  5,940.82 |   508.20 |
+|       Rocks |  3,744.236 ns | 3,625.7178 ns | 941.7667 ns |  1,762.87 |   425.51 |
 
 #### Return
 
  A mock object is created, a method setup with a return, and that method called
 
- |      Method |           Mean |         Error |        StdDev |     Scaled | ScaledSD |
- |------------ |---------------:|--------------:|--------------:|-----------:|---------:|
- |        Stub |       2.751 ns |     0.0305 ns |     0.0254 ns |       1.00 |     0.00 |
- |  FakeItEasy |  44,562.681 ns |   934.3760 ns |   917.6820 ns |  16,197.91 |   353.63 |
- |         Moq | 288,629.140 ns | 2,464.5745 ns | 2,305.3643 ns | 104,912.66 | 1,235.04 |
- | NSubstitute |  21,374.916 ns |   276.9526 ns |   259.0616 ns |   7,769.48 |   114.23 |
- |       Rocks |  10,150.884 ns |   173.3831 ns |   153.6996 ns |   3,689.70 |    63.04 |
+|      Method |          Mean |         Error |        StdDev |    Scaled | ScaledSD |
+|------------ |--------------:|--------------:|--------------:|----------:|---------:|
+|        Stub |      2.111 ns |     0.5955 ns |     0.1547 ns |      1.00 |     0.00 |
+|  FakeItEasy | 45,354.683 ns | 2,775.1171 ns |   720.8263 ns | 21,574.78 | 1,449.12 |
+|         Moq | 11,737.904 ns |   261.7736 ns |    67.9947 ns |  5,583.61 |   367.65 |
+| NSubstitute | 19,128.425 ns |   544.4572 ns |   141.4207 ns |  9,099.20 |   600.30 |
+|       Rocks |  8,047.362 ns | 4,548.2656 ns | 1,181.3951 ns |  3,828.05 |   562.92 |
 
 #### Verify
 
 Verifies that the method was called
 
- |      Method |           Mean |         Error |        StdDev |    Scaled | ScaledSD |
- |------------ |---------------:|--------------:|--------------:|----------:|---------:|
- |        Stub |       2.742 ns |     0.0798 ns |     0.0784 ns |      1.00 |     0.00 |
- |  FakeItEasy |  53,738.145 ns |   575.9481 ns |   538.7422 ns | 19,614.77 |   572.84 |
- |         Moq | 270,312.770 ns | 2,537.2127 ns | 1,980.8886 ns | 98,665.89 | 2,805.13 |
- | NSubstitute |  21,176.545 ns |   190.6430 ns |   169.0000 ns |  7,729.57 |   221.10 |
- |       Rocks |   9,966.483 ns |   149.3100 ns |   139.6647 ns |  3,637.83 |   111.68 |
+|      Method |          Mean |        Error |        StdDev |   Scaled | ScaledSD |
+|------------ |--------------:|-------------:|--------------:|---------:|---------:|
+|        Stub |      5.421 ns |     2.826 ns |     0.7339 ns |     1.00 |     0.00 |
+|  FakeItEasy | 52,010.805 ns | 2,120.052 ns |   550.6757 ns | 9,723.63 | 1,074.29 |
+|         Moq |  9,927.486 ns |   400.920 ns |   104.1376 ns | 1,855.98 |   205.04 |
+| NSubstitute | 17,271.550 ns |   239.594 ns |    62.2336 ns | 3,228.99 |   355.57 |
+|       Rocks |  8,902.708 ns | 6,463.000 ns | 1,678.7402 ns | 1,664.40 |   336.63 |
 
 #### CallbackOnly
 
 The creation of the mock object and its method setup are done outside the benchmark; only the method's call itself is tested
 
- |      Method |          Mean |      Error |     StdDev | Scaled | ScaledSD |
- |------------ |--------------:|-----------:|-----------:|-------:|---------:|
- |        Stub |     0.0018 ns |  0.0045 ns |  0.0042 ns |      ? |        ? |
- |         Moq |   944.0906 ns | 18.7783 ns | 24.4171 ns |      ? |        ? |
- | NSubstitute | 4,807.7543 ns | 49.6466 ns | 46.4395 ns |      ? |        ? |
- |       Rocks |    37.8624 ns |  0.0966 ns |  0.0857 ns |      ? |        ? |
+|      Method |          Mean |          Error |        StdDev |   Scaled | ScaledSD |
+|------------ |--------------:|---------------:|--------------:|---------:|---------:|
+|        Stub |      2.086 ns |      0.9412 ns |     0.2445 ns |     1.00 |     0.00 |
+|  FakeItEasy | 19,727.865 ns | 38,188.8068 ns | 9,919.4005 ns | 9,563.62 | 4,437.73 |
+|         Moq |    410.185 ns |    122.4038 ns |    31.7939 ns |   198.85 |    24.93 |
+| NSubstitute |  4,182.076 ns |    270.1042 ns |    70.1586 ns | 2,027.38 |   213.51 |
+|       Rocks |     23.134 ns |      0.6595 ns |     0.1713 ns |    11.21 |     1.17 |
 
 #### EmptyMethodOnly
 
 The creation of the mock object is done outside the benchmark; only an empty method call itself is tested
 
- |      Method |         Mean |      Error |     StdDev |   Scaled | ScaledSD |
- |------------ |-------------:|-----------:|-----------:|---------:|---------:|
- |        Stub |     1.228 ns |  0.0180 ns |  0.0150 ns |     1.00 |     0.00 |
- |         Moq | 1,000.768 ns | 19.8332 ns | 32.0269 ns |   814.92 |    27.41 |
- | NSubstitute | 4,133.032 ns | 80.9668 ns | 83.1469 ns | 3,365.51 |    76.60 |
- |       Rocks |     1.235 ns |  0.0141 ns |  0.0132 ns |     1.01 |     0.02 |
+|      Method |          Mean |          Error |         StdDev |   Scaled | ScaledSD |
+|------------ |--------------:|---------------:|---------------:|---------:|---------:|
+|        Stub |      3.316 ns |      0.8390 ns |      0.2179 ns |     1.00 |     0.00 |
+|  FakeItEasy | 23,191.044 ns | 45,643.8157 ns | 11,855.8113 ns | 7,019.00 | 3,241.63 |
+|         Moq |    434.064 ns |    222.2236 ns |     57.7218 ns |   131.37 |    17.47 |
+| NSubstitute |  3,745.566 ns |    254.1618 ns |     66.0176 ns | 1,133.63 |    69.28 |
+|       Rocks |      3.360 ns |      1.6770 ns |      0.4356 ns |     1.02 |     0.13 |
 
 #### EmptyReturnOnly
 
 The creation of the mock object is done outside the benchmark; only an empty method itself is tested
 
- |      Method |         Mean |      Error |      StdDev |   Scaled | ScaledSD |
- |------------ |-------------:|-----------:|------------:|---------:|---------:|
- |        Stub |     1.395 ns |  0.0106 ns |   0.0088 ns |     1.00 |     0.00 |
- |         Moq | 1,204.166 ns | 23.1322 ns |  33.9069 ns |   863.35 |    24.45 |
- | NSubstitute | 4,842.011 ns | 96.8704 ns | 161.8486 ns | 3,471.58 |   116.34 |
- |       Rocks |     1.432 ns |  0.0454 ns |   0.0402 ns |     1.03 |     0.03 |
+|      Method |          Mean |          Error |         StdDev |   Scaled | ScaledSD |
+|------------ |--------------:|---------------:|---------------:|---------:|---------:|
+|        Stub |      3.046 ns |      1.0342 ns |      0.2686 ns |     1.00 |     0.00 |
+|  FakeItEasy | 24,715.367 ns | 47,994.7272 ns | 12,466.4518 ns | 8,160.73 | 3,736.40 |
+|         Moq |    689.166 ns |    199.2590 ns |     51.7568 ns |   227.55 |    22.29 |
+| NSubstitute |  4,377.139 ns |    313.7320 ns |     81.4907 ns | 1,445.28 |   105.62 |
+|       Rocks |      3.015 ns |      0.7124 ns |      0.1850 ns |     1.00 |     0.09 |
 
 #### ReturnOnly
 
 The creation of the mock object and its method setup are done outside the benchmark; only the method's call itself is tested
 
- |      Method |         Mean |      Error |     StdDev |   Scaled | ScaledSD |
- |------------ |-------------:|-----------:|-----------:|---------:|---------:|
- |        Stub |     1.443 ns |  0.0380 ns |  0.0355 ns |     1.00 |     0.00 |
- |         Moq | 1,431.085 ns | 28.1130 ns | 58.0582 ns |   992.16 |    46.18 |
- | NSubstitute | 4,623.484 ns | 78.1182 ns | 65.2322 ns | 3,205.42 |    86.94 |
- |       Rocks |    37.805 ns |  0.7545 ns |  0.8074 ns |    26.21 |     0.82 |
+|      Method |          Mean |          Error |        StdDev |   Scaled | ScaledSD |
+|------------ |--------------:|---------------:|--------------:|---------:|---------:|
+|        Stub |      3.322 ns |      0.6730 ns |     0.1748 ns |     1.00 |     0.00 |
+|  FakeItEasy | 16,297.547 ns | 30,322.5410 ns | 7,876.1672 ns | 4,916.27 | 2,139.20 |
+|         Moq |    870.410 ns |    137.8692 ns |    35.8110 ns |   262.57 |    15.44 |
+| NSubstitute |  4,408.761 ns |    264.2877 ns |    68.6478 ns | 1,329.93 |    63.70 |
+|       Rocks |     19.675 ns |      2.1524 ns |     0.5591 ns |     5.94 |     0.31 |
 
 #### VerifyOnly
 
 The creation of the mock object and its method call are done outside the benchmark; only the verification itself is tested
 
- |      Method |            Mean |         Error |        StdDev |       Scaled |   ScaledSD |
- |------------ |----------------:|--------------:|--------------:|-------------:|-----------:|
- |        Stub |       0.1222 ns |     0.0068 ns |     0.0064 ns |         1.00 |       0.00 |
- |  FakeItEasy |  19,565.8368 ns |   108.1973 ns |    90.3496 ns |   160,509.02 |   8,257.01 |
- |         Moq | 250,298.0688 ns | 3,541.1154 ns | 3,312.3612 ns | 2,053,328.83 | 108,467.38 |
- | NSubstitute |   4,092.2133 ns |    24.1976 ns |    22.6345 ns |    33,570.61 |   1,729.86 |
- |       Rocks |     183.5329 ns |     1.4665 ns |     1.3718 ns |     1,505.62 |      77.93 |
+|      Method |         Mean |       Error |     StdDev |   Scaled | ScaledSD |
+|------------ |-------------:|------------:|-----------:|---------:|---------:|
+|        Stub |     2.254 ns |   0.6634 ns |  0.1723 ns |     1.00 |     0.00 |
+|  FakeItEasy | 8,855.920 ns | 140.6020 ns | 36.5208 ns | 3,947.52 |   262.83 |
+|         Moq | 2,218.557 ns |  80.7221 ns | 20.9673 ns |   988.92 |    66.27 |
+| NSubstitute | 3,525.986 ns |  49.8206 ns | 12.9407 ns | 1,571.71 |   104.61 |
+|       Rocks |   179.575 ns |   7.6692 ns |  1.9921 ns |    80.05 |     5.38 |
