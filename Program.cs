@@ -12,6 +12,12 @@ namespace BenchmarkMockNet
         {
             new BenchmarkTests().RunAll();
 
+            if (args.Length == 0)
+            {
+                // With no options, run all benchmarks at default settings
+                args = new[] { "--filter", "*" };
+            }
+
             new BenchmarkSwitcher(new[] {
                 typeof(Construction),
                 typeof(Callback),
@@ -24,7 +30,7 @@ namespace BenchmarkMockNet
                 typeof(EmptyReturnOnly),
                 typeof(ReturnOnly),
                 typeof(VerifyOnly)
-            }).RunAll();
+            }).Run(args);
         }
     }
 }
