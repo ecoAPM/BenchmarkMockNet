@@ -1,4 +1,5 @@
-﻿using BenchmarkDotNet.Running;
+﻿using System.Linq;
+using BenchmarkDotNet.Running;
 using BenchmarkMockNet.Benchmarks;
 
 namespace BenchmarkMockNet
@@ -12,13 +13,7 @@ namespace BenchmarkMockNet
         {
             new BenchmarkTests().RunAll();
 
-            if (args.Length == 0)
-            {
-                // With no options, run all benchmarks at default settings
-                args = new[] { "--filter", "*" };
-            }
-
-            new BenchmarkSwitcher(new[] {
+            var runner = new BenchmarkSwitcher(new[] {
                 typeof(Construction),
                 typeof(Callback),
                 typeof(EmptyMethod),
@@ -30,7 +25,12 @@ namespace BenchmarkMockNet
                 typeof(EmptyReturnOnly),
                 typeof(ReturnOnly),
                 typeof(VerifyOnly)
-            }).Run(args);
+            });
+
+            if (args.Any(a => a.Contains("filter")))
+                runner.Run(args);
+            else
+                runner.RunAll();
         }
     }
 }
