@@ -3,7 +3,7 @@ using BenchmarkDotNet.Engines;
 
 namespace BenchmarkMockNet
 {
-    [SimpleJob(RunStrategy.ColdStart, invocationCount: Program.InvocationCount, targetCount: Program.TargetCount)]
+    [SimpleJob(runStrategy: RunStrategy.ColdStart, invocationCount: Program.InvocationCount, targetCount: Program.TargetCount)]
     public abstract class MockingBenchmark<T> : IMockingBenchmark<T>
     {
         public abstract T FakeItEasy();
@@ -13,7 +13,7 @@ namespace BenchmarkMockNet
         public abstract T Stub();
     }
 
-    [SimpleJob(RunStrategy.ColdStart, invocationCount: Program.InvocationCount, targetCount: Program.TargetCount)]
+    [SimpleJob(runStrategy: RunStrategy.ColdStart, invocationCount: Program.InvocationCount, targetCount: Program.TargetCount)]
     public abstract class MockingBenchmark : IMockingBenchmark
     {
         public abstract void Stub();
