@@ -8,8 +8,8 @@
   <ItemGroup>
     <PackageReference Include="BenchmarkDotNet" Version="0.11.3" />
     <PackageReference Include="Moq" Version="4.10.1" />
-    <PackageReference Include="NSubstitute" Version="3.1.0" />
-    <PackageReference Include="FakeItEasy" Version="5.0.0" />
+    <PackageReference Include="NSubstitute" Version="4.0.0" />
+    <PackageReference Include="FakeItEasy" Version="5.0.1" />
     <PackageReference Include="Rocks" Version="3.1.0" />
   </ItemGroup>
 
