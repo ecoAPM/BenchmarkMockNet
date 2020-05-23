@@ -50,5 +50,14 @@ namespace BenchmarkMockNet.Benchmarks
             rock.Make().DoSomething();
             rock.Verify();
         }
+
+        [Benchmark]
+        public override void PCLMock()
+        {
+            var mock = new ThingyMock();
+            mock.When(x => x.DoSomething());
+            mock.DoSomething();
+            mock.Verify(x => x.DoSomething()).WasCalledExactlyOnce();
+        }
     }
 }

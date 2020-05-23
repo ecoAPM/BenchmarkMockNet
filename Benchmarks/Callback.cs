@@ -57,5 +57,15 @@ namespace BenchmarkMockNet.Benchmarks
             chunk.DoSomething();
             return called;
         }
+
+        [Benchmark]
+        public override bool PCLMock()
+        {
+            var called = false;
+            var mock = new ThingyMock();
+            mock.When(x => x.DoSomething()).Do(() => called = true);
+            mock.DoSomething();
+            return called;
+        }
     }
 }

@@ -30,6 +30,7 @@ namespace BenchmarkMockNet
             Test(benchmark.GetType().Name, "NSubstitute", () => benchmark.NSubstitute().Equals(expected));
             Test(benchmark.GetType().Name, "FakeItEasy", () => benchmark.FakeItEasy().Equals(expected));
             Test(benchmark.GetType().Name, "Rocks", () => benchmark.Rocks().Equals(expected));
+            Test(benchmark.GetType().Name, "PCLMock", () => benchmark.PCLMock().Equals(expected));
         }
 
         private static void Test(string test, string type, Func<bool> pass)
@@ -45,6 +46,7 @@ namespace BenchmarkMockNet
             Test(benchmark.GetType().Name, "NSubstitute", () => benchmark.NSubstitute() is IThingy);
             Test(benchmark.GetType().Name, "FakeItEasy", () => benchmark.FakeItEasy() is IThingy);
             Test(benchmark.GetType().Name, "Rocks", () => benchmark.Rocks() is IThingy);
+            Test(benchmark.GetType().Name, "PCLMock", () => benchmark.PCLMock() is IThingy);
         }
 
         public static void Run(this IMockingBenchmark benchmark)
@@ -54,6 +56,7 @@ namespace BenchmarkMockNet
             benchmark.NSubstitute();
             benchmark.FakeItEasy();
             benchmark.Rocks();
+            benchmark.PCLMock();
         }
     }
 }

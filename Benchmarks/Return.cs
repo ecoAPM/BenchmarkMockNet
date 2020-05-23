@@ -46,5 +46,13 @@ namespace BenchmarkMockNet.Benchmarks
             rock.Handle(r => r.One()).Returns(1);
             return rock.Make().One();
         }
+
+        [Benchmark]
+        public override int PCLMock()
+        {
+            var mock = new ThingyMock();
+            mock.When(x => x.One()).Return(1);
+            return mock.One();
+        }
     }
 }

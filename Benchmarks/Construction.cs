@@ -37,5 +37,11 @@ namespace BenchmarkMockNet.Benchmarks
         {
             return Rock.Make<IThingy>();
         }
+
+        [Benchmark]
+        public override IThingy PCLMock()
+        {
+            return new ThingyMock();
+        }
     }
 }

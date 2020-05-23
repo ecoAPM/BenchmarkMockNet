@@ -15,6 +15,7 @@ namespace BenchmarkMockNet.Benchmarks
         private readonly Mock<IThingy> mock;
         private readonly IThingy sub;
         private readonly IRock<IThingy> rock;
+        private readonly ThingyMock pclMock;
 
         public VerifyOnly()
         {
@@ -33,6 +34,10 @@ namespace BenchmarkMockNet.Benchmarks
             rock = Rock.Create<IThingy>();
             rock.Handle(r => r.DoSomething());
             rock.Make().DoSomething();
+
+            pclMock = new ThingyMock();
+            pclMock.When(x => x.DoSomething());
+            pclMock.DoSomething();
         }
 
         [Benchmark(Baseline = true)]
@@ -52,5 +57,8 @@ namespace BenchmarkMockNet.Benchmarks
 
         [Benchmark]
         public override void Rocks() => rock.Verify();
+
+        [Benchmark]
+        public override void PCLMock() => pclMock.Verify(x => x.DoSomething()).WasCalledExactlyOnce();
     }
 }

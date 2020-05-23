@@ -42,5 +42,13 @@ namespace BenchmarkMockNet.Benchmarks
             var chunk = Rock.Make<IThingy>();
             return chunk.Zero();
         }
+
+        [Benchmark]
+        public override int PCLMock()
+        {
+            var mock = new ThingyMock();
+            mock.When(x => x.Zero());
+            return mock.Zero();
+        }
     }
 }
