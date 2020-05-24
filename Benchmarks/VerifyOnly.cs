@@ -1,5 +1,6 @@
 ﻿using System;
 using BenchmarkDotNet.Attributes;
+using BenchmarkMockNet.PCLMock;
 using FakeItEasy;
 using Moq;
 using NSubstitute;

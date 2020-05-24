@@ -1,6 +1,6 @@
 ﻿using PCLMock;
 
-namespace BenchmarkMockNet
+namespace BenchmarkMockNet.PCLMock
 {
     // you wouldn't normally write this by hand, but would instead use one of the code generators provided by PCLMock
     public sealed class ThingyMock : MockBase<IThingy>, IThingy
