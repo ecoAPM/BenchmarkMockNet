@@ -1,4 +1,5 @@
 ﻿using BenchmarkDotNet.Attributes;
+using BenchmarkMockNet.PCLMock;
 using FakeItEasy;
 using Moq;
 using NSubstitute;
@@ -36,6 +37,12 @@ namespace BenchmarkMockNet.Benchmarks
         public override IThingy Rocks()
         {
             return Rock.Make<IThingy>();
+        }
+
+        [Benchmark]
+        public override IThingy PCLMock()
+        {
+            return new ThingyMock();
         }
     }
 }

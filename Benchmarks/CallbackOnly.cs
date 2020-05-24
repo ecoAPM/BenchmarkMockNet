@@ -1,4 +1,5 @@
 ﻿using BenchmarkDotNet.Attributes;
+using BenchmarkMockNet.PCLMock;
 using FakeItEasy;
 using Moq;
 using NSubstitute;
@@ -13,10 +14,12 @@ namespace BenchmarkMockNet.Benchmarks
         private readonly IThingy mock;
         private readonly IThingy sub;
         private readonly IThingy chunk;
+        private readonly ThingyMock pclMock;
         private bool fakeCalled;
         private bool mockCalled;
         private bool subCalled;
         private bool rockCalled;
+        private bool pclmockCalled;
 
         public CallbackOnly()
         {
@@ -35,6 +38,10 @@ namespace BenchmarkMockNet.Benchmarks
             var rock = Rock.Create<IThingy>();
             rock.Handle(r => r.DoSomething(), () => rockCalled = true);
             chunk = rock.Make();
+
+            var pclMock = new ThingyMock();
+            pclMock.When(x => x.DoSomething()).Do(() => pclmockCalled = true);
+            this.pclMock = pclMock;
         }
 
         [Benchmark(Baseline = true)]
@@ -75,6 +82,14 @@ namespace BenchmarkMockNet.Benchmarks
             rockCalled = false;
             chunk.DoSomething();
             return rockCalled;
+        }
+
+        [Benchmark]
+        public override bool PCLMock()
+        {
+            pclmockCalled = false;
+            pclMock.DoSomething();
+            return pclmockCalled;
         }
     }
 }

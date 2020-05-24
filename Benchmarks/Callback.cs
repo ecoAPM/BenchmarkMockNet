@@ -1,4 +1,5 @@
 using BenchmarkDotNet.Attributes;
+using BenchmarkMockNet.PCLMock;
 using FakeItEasy;
 using Moq;
 using NSubstitute;
@@ -55,6 +56,16 @@ namespace BenchmarkMockNet.Benchmarks
             rock.Handle(r => r.DoSomething(), () => called = true);
             var chunk = rock.Make();
             chunk.DoSomething();
+            return called;
+        }
+
+        [Benchmark]
+        public override bool PCLMock()
+        {
+            var called = false;
+            var mock = new ThingyMock();
+            mock.When(x => x.DoSomething()).Do(() => called = true);
+            mock.DoSomething();
             return called;
         }
     }
