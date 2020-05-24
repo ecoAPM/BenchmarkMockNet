@@ -7,6 +7,7 @@
         T NSubstitute();
         T FakeItEasy();
         T Rocks();
+        T PCLMock();
     }
 
     public interface IMockingBenchmark
@@ -16,5 +17,6 @@
         void NSubstitute();
         void FakeItEasy();
         void Rocks();
+        void PCLMock();
     }
 }

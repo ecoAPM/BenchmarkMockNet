@@ -1,4 +1,5 @@
 using BenchmarkDotNet.Attributes;
+using BenchmarkMockNet.PCLMock;
 using FakeItEasy;
 using Moq;
 using NSubstitute;
@@ -13,6 +14,7 @@ namespace BenchmarkMockNet.Benchmarks
         private readonly IThingy sub;
         private readonly IThingy fake;
         private readonly IThingy chunk;
+        private readonly ThingyMock pclMock;
 
         public ReturnOnly()
         {
@@ -31,6 +33,10 @@ namespace BenchmarkMockNet.Benchmarks
             var rock = Rock.Create<IThingy>();
             rock.Handle(r => r.One()).Returns(1);
             chunk = rock.Make();
+
+            var pclMock = new ThingyMock();
+            pclMock.When(x => x.One()).Return(1);
+            this.pclMock = pclMock;
         }
 
         [Benchmark(Baseline = true)]
@@ -47,5 +53,8 @@ namespace BenchmarkMockNet.Benchmarks
 
         [Benchmark]
         public override int Rocks() => chunk.One();
+
+        [Benchmark]
+        public override int PCLMock() => pclMock.One();
     }
 }

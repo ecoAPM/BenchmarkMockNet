@@ -1,4 +1,5 @@
 using BenchmarkDotNet.Attributes;
+using BenchmarkMockNet.PCLMock;
 using FakeItEasy;
 using Moq;
 using NSubstitute;
@@ -13,6 +14,7 @@ namespace BenchmarkMockNet.Benchmarks
         private readonly IThingy mock;
         private readonly IThingy sub;
         private readonly IThingy chunk;
+        private readonly ThingyMock pclMock;
 
         public EmptyMethodOnly()
         {
@@ -21,6 +23,8 @@ namespace BenchmarkMockNet.Benchmarks
             mock = new Mock<IThingy>().Object;
             sub = Substitute.For<IThingy>();
             chunk = Rock.Make<IThingy>();
+            pclMock = new ThingyMock();
+            pclMock.When(x => x.DoNothing());
         }
 
         [Benchmark(Baseline = true)]
@@ -37,5 +41,8 @@ namespace BenchmarkMockNet.Benchmarks
 
         [Benchmark]
         public override void Rocks() => chunk.DoNothing();
+
+        [Benchmark]
+        public override void PCLMock() => pclMock.DoNothing();
     }
 }

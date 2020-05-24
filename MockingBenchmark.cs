@@ -11,6 +11,7 @@ namespace BenchmarkMockNet
         public abstract T NSubstitute();
         public abstract T Rocks();
         public abstract T Stub();
+        public abstract T PCLMock();
     }
 
     [SimpleJob(runStrategy: RunStrategy.ColdStart, invocationCount: Program.InvocationCount, targetCount: Program.TargetCount)]
@@ -21,5 +22,6 @@ namespace BenchmarkMockNet
         public abstract void NSubstitute();
         public abstract void FakeItEasy();
         public abstract void Rocks();
+        public abstract void PCLMock();
     }
 }
