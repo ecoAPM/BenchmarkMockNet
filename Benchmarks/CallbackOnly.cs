@@ -36,8 +36,8 @@ namespace BenchmarkMockNet.Benchmarks
             sub.When(s => s.DoSomething()).Do(c => subCalled = true);
 
             var rock = Rock.Create<IThingy>();
-            rock.Handle(r => r.DoSomething(), () => rockCalled = true);
-            chunk = rock.Make();
+            rock.Methods().DoSomething().Callback(() => rockCalled = true);
+            chunk = rock.Instance();
 
             var pclMock = new ThingyMock();
             pclMock.When(x => x.DoSomething()).Do(() => pclmockCalled = true);

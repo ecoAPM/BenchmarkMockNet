@@ -40,7 +40,7 @@ namespace BenchmarkMockNet.Benchmarks
         [Benchmark]
         public override int Rocks()
         {
-            var chunk = Rock.Make<IThingy>();
+            var chunk = Rock.Make<IThingy>().Instance();
             return chunk.Zero();
         }
 

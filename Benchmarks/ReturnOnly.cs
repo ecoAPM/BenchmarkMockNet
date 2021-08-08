@@ -31,8 +31,8 @@ namespace BenchmarkMockNet.Benchmarks
             sub.One().Returns(1);
 
             var rock = Rock.Create<IThingy>();
-            rock.Handle(r => r.One()).Returns(1);
-            chunk = rock.Make();
+            rock.Methods().One().Returns(1);
+            chunk = rock.Instance();
 
             var pclMock = new ThingyMock();
             pclMock.When(x => x.One()).Return(1);

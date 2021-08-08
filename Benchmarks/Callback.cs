@@ -53,8 +53,8 @@ namespace BenchmarkMockNet.Benchmarks
         {
             var called = false;
             var rock = Rock.Create<IThingy>();
-            rock.Handle(r => r.DoSomething(), () => called = true);
-            var chunk = rock.Make();
+            rock.Methods().DoSomething().Callback(() => called = true);
+            var chunk = rock.Instance();
             chunk.DoSomething();
             return called;
         }

@@ -44,8 +44,8 @@ namespace BenchmarkMockNet.Benchmarks
         public override int Rocks()
         {
             var rock = Rock.Create<IThingy>();
-            rock.Handle(r => r.One()).Returns(1);
-            return rock.Make().One();
+            rock.Methods().One().Returns(1);
+            return rock.Instance().One();
         }
 
         [Benchmark]
