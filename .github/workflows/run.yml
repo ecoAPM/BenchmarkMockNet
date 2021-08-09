@@ -1,4 +1,4 @@
-name: .NET Core
+name: Run
 
 on:
   push
@@ -13,17 +13,17 @@ jobs:
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 3.1.300
+        dotnet-version: 5.0.x
     
     - name: Build benchmarks
       run: dotnet publish -c Release
     
     - name: Run benchmarks
       run: dotnet BenchmarkMockNet.dll
-      working-directory: bin/Release/netcoreapp3.1/publish
+      working-directory: bin/Release/net5.0/publish
     
     - name: Upload results
       uses: actions/upload-artifact@v2
       with:
         name: Results
-        path: bin/Release/netcoreapp3.1/publish/BenchmarkDotNet.Artifacts/results/*.md
+        path: bin/Release/net5.0/publish/BenchmarkDotNet.Artifacts/results/*.md
