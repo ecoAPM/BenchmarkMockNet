@@ -5,6 +5,7 @@ using FakeItEasy;
 using Moq;
 using NSubstitute;
 using Rocks;
+using Rocks.Expectations;
 using Times = Moq.Times;
 
 namespace BenchmarkMockNet.Benchmarks
@@ -15,7 +16,7 @@ namespace BenchmarkMockNet.Benchmarks
         private readonly IThingy fake;
         private readonly Mock<IThingy> mock;
         private readonly IThingy sub;
-        private readonly IRock<IThingy> rock;
+        private readonly Expectations<IThingy> rock;
         private readonly ThingyMock pclMock;
 
         public VerifyOnly()
@@ -33,8 +34,8 @@ namespace BenchmarkMockNet.Benchmarks
             sub.DoSomething();
 
             rock = Rock.Create<IThingy>();
-            rock.Handle(r => r.DoSomething());
-            rock.Make().DoSomething();
+            rock.Methods().DoSomething();
+            rock.Instance().DoSomething();
 
             pclMock = new ThingyMock();
             pclMock.When(x => x.DoSomething());

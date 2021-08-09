@@ -36,7 +36,7 @@ namespace BenchmarkMockNet.Benchmarks
         [Benchmark]
         public override IThingy Rocks()
         {
-            return Rock.Make<IThingy>();
+            return Rock.Make<IThingy>().Instance();
         }
 
         [Benchmark]

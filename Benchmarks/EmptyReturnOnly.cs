@@ -22,7 +22,7 @@ namespace BenchmarkMockNet.Benchmarks
             fake = A.Fake<IThingy>();
             mock = new Mock<IThingy>().Object;
             sub = Substitute.For<IThingy>();
-            chunk = Rock.Make<IThingy>();
+            chunk = Rock.Make<IThingy>().Instance();
             pclMock = new ThingyMock();
             pclMock.When(x => x.Zero());
         }
