@@ -41,19 +41,19 @@ namespace BenchmarkMockNet.Benchmarks
         }
 
         [Benchmark]
-        public override int Rocks()
-        {
-            var rock = Rock.Create<IThingy>();
-            rock.Methods().One().Returns(1);
-            return rock.Instance().One();
-        }
-
-        [Benchmark]
         public override int PCLMock()
         {
             var mock = new ThingyMock();
             mock.When(x => x.One()).Return(1);
             return mock.One();
+        }
+
+        [Benchmark]
+        public override int Rocks()
+        {
+            var rock = Rock.Create<IThingy>();
+            rock.Methods().One().Returns(1);
+            return rock.Instance().One();
         }
     }
 }

@@ -9,54 +9,55 @@ namespace BenchmarkMockNet.Benchmarks
 {
     public class CallbackOnly : MockingBenchmark<bool>
     {
-        private readonly ThingStub stub;
-        private readonly IThingy fake;
-        private readonly IThingy mock;
-        private readonly IThingy sub;
-        private readonly IThingy chunk;
-        private readonly ThingyMock pclMock;
+        private readonly ThingStub _stub;
+        private readonly IThingy _fake;
+        private readonly IThingy _mock;
+        private readonly IThingy _sub;
+        private readonly ThingyMock _pcl;
+        private readonly IThingy _rock;
+
         private bool fakeCalled;
         private bool mockCalled;
         private bool subCalled;
+        private bool pclCalled;
         private bool rockCalled;
-        private bool pclmockCalled;
 
         public CallbackOnly()
         {
-            stub = new ThingStub();
+            _stub = new ThingStub();
 
-            fake = A.Fake<IThingy>();
-            A.CallTo(() => fake.DoSomething()).Invokes(f => fakeCalled = true);
+            _fake = A.Fake<IThingy>();
+            A.CallTo(() => _fake.DoSomething()).Invokes(f => fakeCalled = true);
 
             var mockSetup = new Mock<IThingy>();
             mockSetup.Setup(m => m.DoSomething()).Callback(() => mockCalled = true);
-            mock = mockSetup.Object;
+            _mock = mockSetup.Object;
 
-            sub = Substitute.For<IThingy>();
-            sub.When(s => s.DoSomething()).Do(c => subCalled = true);
+            _sub = Substitute.For<IThingy>();
+            _sub.When(s => s.DoSomething()).Do(c => subCalled = true);
+
+            var pclMock = new ThingyMock();
+            pclMock.When(x => x.DoSomething()).Do(() => pclCalled = true);
+            _pcl = pclMock;
 
             var rock = Rock.Create<IThingy>();
             rock.Methods().DoSomething().Callback(() => rockCalled = true);
-            chunk = rock.Instance();
-
-            var pclMock = new ThingyMock();
-            pclMock.When(x => x.DoSomething()).Do(() => pclmockCalled = true);
-            this.pclMock = pclMock;
+            _rock = rock.Instance();
         }
 
         [Benchmark(Baseline = true)]
         public override bool Stub()
         {
-            stub.Called = false;
-            stub.DoSomething();
-            return stub.Called;
+            _stub.Called = false;
+            _stub.DoSomething();
+            return _stub.Called;
         }
 
         [Benchmark]
         public override bool FakeItEasy()
         {
             fakeCalled = false;
-            fake.DoSomething();
+            _fake.DoSomething();
             return fakeCalled;
         }
 
@@ -64,7 +65,7 @@ namespace BenchmarkMockNet.Benchmarks
         public override bool Moq()
         {
             mockCalled = false;
-            mock.DoSomething();
+            _mock.DoSomething();
             return mockCalled;
         }
 
@@ -72,24 +73,24 @@ namespace BenchmarkMockNet.Benchmarks
         public override bool NSubstitute()
         {
             subCalled = false;
-            sub.DoSomething();
+            _sub.DoSomething();
             return subCalled;
+        }
+
+        [Benchmark]
+        public override bool PCLMock()
+        {
+            pclCalled = false;
+            _pcl.DoSomething();
+            return pclCalled;
         }
 
         [Benchmark]
         public override bool Rocks()
         {
             rockCalled = false;
-            chunk.DoSomething();
+            _rock.DoSomething();
             return rockCalled;
-        }
-
-        [Benchmark]
-        public override bool PCLMock()
-        {
-            pclmockCalled = false;
-            pclMock.DoSomething();
-            return pclmockCalled;
         }
     }
 }

@@ -38,18 +38,18 @@ namespace BenchmarkMockNet.Benchmarks
         }
 
         [Benchmark]
-        public override int Rocks()
-        {
-            var chunk = Rock.Make<IThingy>().Instance();
-            return chunk.Zero();
-        }
-
-        [Benchmark]
         public override int PCLMock()
         {
             var mock = new ThingyMock();
             mock.When(x => x.Zero());
             return mock.Zero();
+        }
+
+        [Benchmark]
+        public override int Rocks()
+        {
+            var chunk = Rock.Make<IThingy>().Instance();
+            return chunk.Zero();
         }
     }
 }

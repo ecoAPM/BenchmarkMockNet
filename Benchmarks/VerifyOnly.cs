@@ -16,8 +16,8 @@ namespace BenchmarkMockNet.Benchmarks
         private readonly IThingy fake;
         private readonly Mock<IThingy> mock;
         private readonly IThingy sub;
-        private readonly Expectations<IThingy> rock;
         private readonly ThingyMock pclMock;
+        private readonly Expectations<IThingy> rock;
 
         public VerifyOnly()
         {
@@ -33,19 +33,22 @@ namespace BenchmarkMockNet.Benchmarks
             sub = Substitute.For<IThingy>();
             sub.DoSomething();
 
-            rock = Rock.Create<IThingy>();
-            rock.Methods().DoSomething();
-            rock.Instance().DoSomething();
-
             pclMock = new ThingyMock();
             pclMock.When(x => x.DoSomething());
             pclMock.DoSomething();
+
+            rock = Rock.Create<IThingy>();
+            rock.Methods().DoSomething();
+            rock.Instance().DoSomething();
         }
 
         [Benchmark(Baseline = true)]
         public override void Stub()
         {
-            if (!stub.Called) throw new Exception();
+            if (!stub.Called) 
+            {
+                throw new Exception();
+            }
         }
 
         [Benchmark]
@@ -58,9 +61,9 @@ namespace BenchmarkMockNet.Benchmarks
         public override void NSubstitute() => sub.Received().DoSomething();
 
         [Benchmark]
-        public override void Rocks() => rock.Verify();
+        public override void PCLMock() => pclMock.Verify(x => x.DoSomething()).WasCalledExactlyOnce();
 
         [Benchmark]
-        public override void PCLMock() => pclMock.Verify(x => x.DoSomething()).WasCalledExactlyOnce();
+        public override void Rocks() => rock.Verify();
     }
 }

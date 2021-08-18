@@ -44,21 +44,21 @@ namespace BenchmarkMockNet.Benchmarks
         }
 
         [Benchmark]
-        public override void Rocks()
-        {
-            var rock = Rock.Create<IThingy>();
-            rock.Methods().DoSomething();
-            rock.Instance().DoSomething();
-            rock.Verify();
-        }
-
-        [Benchmark]
         public override void PCLMock()
         {
             var mock = new ThingyMock();
             mock.When(x => x.DoSomething());
             mock.DoSomething();
             mock.Verify(x => x.DoSomething()).WasCalledExactlyOnce();
+        }
+
+        [Benchmark]
+        public override void Rocks()
+        {
+            var rock = Rock.Create<IThingy>();
+            rock.Methods().DoSomething();
+            rock.Instance().DoSomething();
+            rock.Verify();
         }
     }
 }

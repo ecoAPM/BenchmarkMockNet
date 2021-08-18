@@ -13,8 +13,8 @@ namespace BenchmarkMockNet.Benchmarks
         private readonly IThingy fake;
         private readonly IThingy mock;
         private readonly IThingy sub;
-        private readonly IThingy chunk;
         private readonly ThingyMock pclMock;
+        private readonly IThingy rock;
 
         public EmptyReturnOnly()
         {
@@ -22,9 +22,9 @@ namespace BenchmarkMockNet.Benchmarks
             fake = A.Fake<IThingy>();
             mock = new Mock<IThingy>().Object;
             sub = Substitute.For<IThingy>();
-            chunk = Rock.Make<IThingy>().Instance();
             pclMock = new ThingyMock();
             pclMock.When(x => x.Zero());
+            rock = Rock.Make<IThingy>().Instance();
         }
 
         [Benchmark(Baseline = true)]
@@ -40,9 +40,9 @@ namespace BenchmarkMockNet.Benchmarks
         public override int NSubstitute() => sub.Zero();
 
         [Benchmark]
-        public override int Rocks() => chunk.Zero();
+        public override int PCLMock() => pclMock.Zero();
 
         [Benchmark]
-        public override int PCLMock() => pclMock.Zero();
+        public override int Rocks() => rock.Zero();
     }
 }

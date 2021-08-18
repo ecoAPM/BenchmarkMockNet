@@ -49,6 +49,16 @@ namespace BenchmarkMockNet.Benchmarks
         }
 
         [Benchmark]
+        public override bool PCLMock()
+        {
+            var called = false;
+            var mock = new ThingyMock();
+            mock.When(x => x.DoSomething()).Do(() => called = true);
+            mock.DoSomething();
+            return called;
+        }
+
+        [Benchmark]
         public override bool Rocks()
         {
             var called = false;
@@ -56,16 +66,6 @@ namespace BenchmarkMockNet.Benchmarks
             rock.Methods().DoSomething().Callback(() => called = true);
             var chunk = rock.Instance();
             chunk.DoSomething();
-            return called;
-        }
-
-        [Benchmark]
-        public override bool PCLMock()
-        {
-            var called = false;
-            var mock = new ThingyMock();
-            mock.When(x => x.DoSomething()).Do(() => called = true);
-            mock.DoSomething();
             return called;
         }
     }

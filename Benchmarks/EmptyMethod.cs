@@ -38,18 +38,18 @@ namespace BenchmarkMockNet.Benchmarks
         }
 
         [Benchmark]
-        public override void Rocks()
-        {
-            var chunk = Rock.Make<IThingy>().Instance();
-            chunk.DoNothing();
-        }
-
-        [Benchmark]
         public override void PCLMock()
         {
             var mock = new ThingyMock();
             mock.When(x => x.DoNothing());
             mock.DoNothing();
+        }
+
+        [Benchmark]
+        public override void Rocks()
+        {
+            var chunk = Rock.Make<IThingy>().Instance();
+            chunk.DoNothing();
         }
     }
 }
