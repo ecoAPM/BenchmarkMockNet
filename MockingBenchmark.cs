@@ -3,7 +3,8 @@ using BenchmarkDotNet.Engines;
 
 namespace BenchmarkMockNet
 {
-    [SimpleJob(runStrategy: RunStrategy.ColdStart, invocationCount: Program.InvocationCount, targetCount: Program.TargetCount)]
+    [MemoryDiagnoser]
+    [SimpleJob(RunStrategy.ColdStart, 1, 0, 3, 100_000)]
     public abstract class MockingBenchmark<T> : IMockingBenchmark<T>
     {
         public abstract T FakeItEasy();
@@ -14,7 +15,8 @@ namespace BenchmarkMockNet
         public abstract T PCLMock();
     }
 
-    [SimpleJob(runStrategy: RunStrategy.ColdStart, invocationCount: Program.InvocationCount, targetCount: Program.TargetCount)]
+    [MemoryDiagnoser]
+    [SimpleJob(RunStrategy.ColdStart, 1, 0, 3, 100_000)]
     public abstract class MockingBenchmark : IMockingBenchmark
     {
         public abstract void Stub();
