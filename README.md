@@ -1,18 +1,16 @@
 # BenchmarkMockNet
-Using BenchmarkDotNet to compare .NET Core mocking library performance
 
----
-
-This repo contains the code for -- and results of -- a series of benchmarks around the functionality of some of .NET Core's mocking libraries.
-
-The baseline is a simple [stub](https://github.com/stevedesmond-ca/BenchmarkMockNet/blob/master/ThingStub.cs).
+This repo contains the code for, and results of, a series of performance benchmarks running against various .NET mocking libraries, using [BenchmarkDotNet](https://github.com/dotnet/BenchmarkDotNet).
 
 ## Current contenders (alphabetical order)
-- [FakeItEasy](https://github.com/FakeItEasy/FakeItEasy) v6.0.1
-- [Moq](https://github.com/moq/moq4) v4.14.4
-- [NSubstitute](http://nsubstitute.github.io/) v4.2.1
-- [PCLMock](https://github.com/kentcb/PCLMock) v5.1.3
-- [Rocks](https://github.com/JasonBock/Rocks) v4.1.1
+
+The baseline is a simple [stub class](https://github.com/stevedesmond-ca/BenchmarkMockNet/blob/master/ThingStub.cs).
+
+- [FakeItEasy](https://github.com/FakeItEasy/FakeItEasy)
+- [Moq](https://github.com/moq/moq4)
+- [NSubstitute](http://nsubstitute.github.io/)
+- [PCLMock](https://github.com/kentcb/PCLMock)
+- [Rocks](https://github.com/JasonBock/Rocks)
 
 Want to add more? PRs welcome! Just add a method to `IMockingBenchmark` and `IMockingBenchmark<T>`, implement it in each of the benchmarks, and add it to the `BenchmarkTestHelpers` methods.
 
@@ -191,3 +189,20 @@ The creation of the mock object and its method call are done outside the benchma
 | NSubstitute | 3,081.019 ns | 750.531 ns | 496.430 ns | 2,919.888 ns | 528.36 |  109.25 |
 |       Rocks |   345.472 ns | 228.593 ns | 151.200 ns |   254.984 ns |  58.37 |   25.39 |
 |     PCLMock | 1,781.514 ns | 815.947 ns | 539.699 ns | 1,558.300 ns | 301.94 |   71.54 |
+
+## Building/Running from source
+
+### Requirements
+
+- .NET SDK v5.0.400 (or newer)
+
+### Installation
+
+1. Run `dotnet restore` to install all dependent libraries and prep for build
+1. Run `dotnet publish -c Release` to build the benchmarks (the `-c Release` flag is important to maximize accuracy)
+
+### Usage
+
+1. Once restored and built, run `dotnet bin/Release/net5.0/publish/BenchmarkMockNet.dll` to execute the benchmarks
+2. Benchmarks will take about 5 minutes to run
+3. Results are stored in the `BenchmarkDotNet.Artifacts` directory, in both HTML and Markdown formats
