@@ -4,56 +4,59 @@ using FakeItEasy;
 using Moq;
 using NSubstitute;
 using Rocks;
+using System;
 
 namespace BenchmarkMockNet.Benchmarks
 {
-    public class Return : MockingBenchmark<int>
+    public class TwoParameters : MockingBenchmark
     {
+        private readonly string _a = "a";
+        private readonly Guid _b = Guid.NewGuid();
+
         [Benchmark(Baseline = true)]
-        public override int Stub()
+        public override void Stub()
         {
             var stub = new ThingStub();
-            return stub.One();
+            stub.TwoParameters(_a, _b);
         }
 
         [Benchmark]
-        public override int FakeItEasy()
+        public override void FakeItEasy()
         {
             var fake = A.Fake<IThingy>();
-            A.CallTo(() => fake.One()).Returns(1);
-            return fake.One();
+            A.CallTo(() => fake.TwoParameters(_a, _b));
+            fake.TwoParameters(_a, _b);
         }
 
         [Benchmark]
-        public override int Moq()
+        public override void Moq()
         {
             var mock = new Mock<IThingy>();
-            mock.Setup(m => m.One()).Returns(1);
-            return mock.Object.One();
+            mock.Setup(m => m.TwoParameters(_a, _b));
+            mock.Object.TwoParameters(_a, _b);
         }
 
         [Benchmark]
-        public override int NSubstitute()
+        public override void NSubstitute()
         {
             var sub = Substitute.For<IThingy>();
-            sub.One().Returns(1);
-            return sub.One();
+            sub.TwoParameters(_a, _b);
         }
 
         [Benchmark]
-        public override int PCLMock()
+        public override void PCLMock()
         {
             var mock = new ThingyMock();
-            mock.When(x => x.One()).Return(1);
-            return mock.One();
+            mock.When(x => x.TwoParameters(_a, _b));
+            mock.TwoParameters(_a, _b);
         }
 
         [Benchmark]
-        public override int Rocks()
+        public override void Rocks()
         {
             var rock = Rock.Create<IThingy>();
-            rock.Methods().One().Returns(1);
-            return rock.Instance().One();
+            rock.Methods().TwoParameters(_a, _b);
+            rock.Instance().TwoParameters(_a, _b);
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using PCLMock;
+using System;
 
 namespace BenchmarkMockNet.PCLMock
 {
@@ -21,5 +22,11 @@ namespace BenchmarkMockNet.PCLMock
 
         public int Zero() =>
             this.Apply(x => x.Zero());
+
+        public void TwoParameters(string a, Guid b) =>
+            this.Apply(x => x.TwoParameters(a, b));
+
+        public void FourParameters(string a, Guid b, string c, Guid d) =>
+            this.Apply(x => x.FourParameters(a, b, c, d));
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace BenchmarkMockNet
+﻿using System;
+
+namespace BenchmarkMockNet
 {
     public class ThingStub : IThingy
     {
@@ -21,6 +23,14 @@
         public int Zero()
         {
             return 0;
+        }
+
+        public void TwoParameters(string a, Guid b)
+        {
+        }
+
+        public void FourParameters(string a, Guid b, string c, Guid d)
+        {
         }
     }
 }
