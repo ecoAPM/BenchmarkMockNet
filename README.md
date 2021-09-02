@@ -31,18 +31,6 @@ These tests cover standard mocking framework functionality
  | [Return](Results.md#return)                   | for a mocked method to return a value?            |
  | [Verify](Results.md#verify)                   | for verification that a method was called?        |
 
-Each test (other than construction, obviously) also has an "Only" version, where the mock is setup in the constructor, and only the method call itself is measured.
-
-This is more accurate when comparing against larger testing classes, where you have a fixture- or assembly-level setup that doesn't get run with every test.
-
- | Test                                         | How long does it take...                          |
- | -------------------------------------------- | ------------------------------------------------- |
- | [CallbackOnly](Results.md#callbackonly)       | for an already set-up method to callback?         |
- | [EmptyMethodOnly](Results.md#emptymethodonly) | for an already un-setup method to be called?      |
- | [EmptyReturnOnly](Results.md#emptyreturnonly) | for an already un-setup method to return default? |
- | [ReturnOnly](Results.md#returnonly)           | for an already set-up method to return?           |
- | [VerifyOnly](Results.md#verifyonly)           | for an already set-up method to be verified?      |
-
 Want to add more? PRs welcome! Just add a new class extending `MockingBenchmark` or `MockingBenchmark<T>`, depending on what you're testing.
 
 ### Results
