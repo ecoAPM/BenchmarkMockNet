@@ -12,16 +12,12 @@ namespace BenchmarkMockNet
             typeof(EmptyMethod),
             typeof(EmptyReturn),
             typeof(Return),
-            typeof(Verify),
-            typeof(CallbackOnly),
-            typeof(EmptyMethodOnly),
-            typeof(EmptyReturnOnly),
-            typeof(ReturnOnly),
-            typeof(VerifyOnly)
+            typeof(Verify)
         });
 
         public static void Main(string[] args)
         {
+            BenchmarkTests.RunAll();
             if (args.Any(a => a.Contains("filter")))
                 Runner.Run(args);
             else

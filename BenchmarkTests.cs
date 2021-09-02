@@ -3,9 +3,9 @@ using BenchmarkMockNet.Benchmarks;
 
 namespace BenchmarkMockNet
 {
-    public class BenchmarkTests
+    public static class BenchmarkTests
     {
-        public void RunAll()
+        public static void RunAll()
         {
             new Construction().Run();
             new Callback().Run(true);
@@ -13,17 +13,9 @@ namespace BenchmarkMockNet
             new EmptyReturn().Run(0);
             new Return().Run(1);
             new Verify().Run();
-            new CallbackOnly().Run(true);
-            new EmptyMethodOnly().Run();
-            new EmptyReturnOnly().Run(0);
-            new ReturnOnly().Run(1);
-            new VerifyOnly().Run();
         }
-    }
 
-    static class BenchmarkTestHelpers
-    {
-        public static void Run<T>(this IMockingBenchmark<T> benchmark, T expected)
+        private static void Run<T>(this IMockingBenchmark<T> benchmark, T expected)
         {
             Test(benchmark.GetType().Name, "Stub", () => benchmark.Stub().Equals(expected));
             Test(benchmark.GetType().Name, "Moq", () => benchmark.Moq().Equals(expected));
@@ -39,7 +31,7 @@ namespace BenchmarkMockNet
                 throw new Exception($"{type} failed {test}");
         }
 
-        public static void Run<T>(this IMockingBenchmark<T> benchmark)
+        private static void Run<T>(this IMockingBenchmark<T> benchmark)
         {
             Test(benchmark.GetType().Name, "Stub", () => benchmark.Stub() is IThingy);
             Test(benchmark.GetType().Name, "Moq", () => benchmark.Moq() is IThingy);
@@ -49,7 +41,7 @@ namespace BenchmarkMockNet
             Test(benchmark.GetType().Name, "PCLMock", () => benchmark.PCLMock() is IThingy);
         }
 
-        public static void Run(this IMockingBenchmark benchmark)
+        private static void Run(this IMockingBenchmark benchmark)
         {
             benchmark.Stub();
             benchmark.Moq();

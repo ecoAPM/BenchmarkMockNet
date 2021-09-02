@@ -10,16 +10,9 @@ namespace BenchmarkMockNet.PCLMock
         {
         }
 
-        public void DoNothing() =>
-            this.Apply(x => x.DoNothing());
-
-        public void DoSomething() =>
-            this.Apply(x => x.DoSomething());
-
-        public int One() =>
-            this.Apply(x => x.One());
-
-        public int Zero() =>
-            this.Apply(x => x.Zero());
+        public void DoNothing() => Apply(x => x.DoNothing());
+        public void DoSomething() => Apply(x => x.DoSomething());
+        public int One() => Apply(x => x.One());
+        public int Zero() => Apply(x => x.Zero());
     }
 }
