@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 namespace BenchmarkMockNet
 {
@@ -8,5 +8,6 @@ namespace BenchmarkMockNet
 		void DoNothing();
 		int One();
 		int Zero();
+		void OneParameter(int a);
 	}
 }

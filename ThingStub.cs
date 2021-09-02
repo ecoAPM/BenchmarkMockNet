@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 namespace BenchmarkMockNet
 {
@@ -15,5 +15,7 @@ namespace BenchmarkMockNet
 		public int One() => 1;
 
 		public int Zero() => 0;
+
+		public void OneParameter(int a) { }
 	}
 }

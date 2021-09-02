@@ -1,4 +1,4 @@
-﻿using PCLMock;
+using PCLMock;
 using System;
 
 namespace BenchmarkMockNet.PCLMock
@@ -18,5 +18,7 @@ namespace BenchmarkMockNet.PCLMock
 		public int One() => Apply(x => x.One());
 
 		public int Zero() => Apply(x => x.Zero());
+
+		public void OneParameter(int a) => Apply(x => x.OneParameter(a));
 	}
 }
