@@ -1,10 +1,10 @@
 ﻿namespace BenchmarkMockNet
 {
-    public interface IThingy
-    {
-        void DoSomething();
-        void DoNothing();
-        int One();
-        int Zero();
-    }
+	public interface IThingy
+	{
+		void DoSomething();
+		void DoNothing();
+		int One();
+		int Zero();
+	}
 }
