@@ -17,6 +17,7 @@ namespace BenchmarkMockNet.Tests
 			{ typeof(Callback),     result => result is true },
 			{ typeof(EmptyMethod),  result => result is null },
 			{ typeof(EmptyReturn),  result => result is 0 },
+			{ typeof(OneParameter), result => result is null },
 			{ typeof(Return),       result => result is 1 },
 			{ typeof(Verify),       result => result is null }
 		};

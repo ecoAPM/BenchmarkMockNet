@@ -1,4 +1,4 @@
-﻿namespace BenchmarkMockNet
+namespace BenchmarkMockNet
 {
 	public class ThingStub : IThing
 	{
@@ -14,5 +14,10 @@
 		public int One() => 1;
 
 		public int Zero() => 0;
+
+		public void OneParameter(int a)
+		{
+			//this page intentionally left blank
+		}
 	}
 }

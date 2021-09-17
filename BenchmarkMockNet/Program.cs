@@ -1,4 +1,4 @@
-﻿using System.Linq;
+using System.Linq;
 using BenchmarkDotNet.Running;
 using BenchmarkMockNet.Benchmarks;
 
@@ -13,7 +13,8 @@ namespace BenchmarkMockNet
 			typeof(EmptyMethod),
 			typeof(EmptyReturn),
 			typeof(Return),
-			typeof(Verify)
+			typeof(Verify),
+			typeof(OneParameter)
 		});
 
 		public static void Main(string[] args)
