@@ -2,6 +2,14 @@
 
 This repo contains the code for, and results of, a series of performance benchmarks running against various .NET mocking libraries, using [BenchmarkDotNet](https://github.com/dotnet/BenchmarkDotNet).
 
+[![Results](https://img.shields.io/badge/Results-latest-darkgreen?logo=github)](https://github.com/ecoAPM/BenchmarkMockNet/blob/main/Results.md)
+[![CI](https://github.com/ecoAPM/BenchmarkMockNet/actions/workflows/CI.yml/badge.svg)](https://github.com/ecoAPM/BenchmarkMockNet/actions/workflows/CI.yml)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=ecoAPM_BenchmarkMockNet&metric=coverage)](https://sonarcloud.io/dashboard?id=ecoAPM_BenchmarkMockNet)
+
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=ecoAPM_BenchmarkMockNet&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=ecoAPM_BenchmarkMockNet)
+[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=ecoAPM_BenchmarkMockNet&metric=reliability_rating)](https://sonarcloud.io/dashboard?id=ecoAPM_BenchmarkMockNet)
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=ecoAPM_BenchmarkMockNet&metric=security_rating)](https://sonarcloud.io/dashboard?id=ecoAPM_BenchmarkMockNet)
+
 ## Current contenders (alphabetical order)
 
 The baseline is a simple [stub class](ThingStub.cs).
@@ -12,26 +20,26 @@ The baseline is a simple [stub class](ThingStub.cs).
 - [PCLMock](https://github.com/kentcb/PCLMock)
 - [Rocks](https://github.com/JasonBock/Rocks)
 
-Want to add more? PRs welcome! Just add a method to `IMockingBenchmark` and `IMockingBenchmark<T>`, implement it in each of the benchmarks, and add it to the `BenchmarkTestHelpers` methods.
+Want to add more? PRs welcome! Add a method to `IMockingBenchmark` and `IMockingBenchmark<T>`, implement it in each of the benchmarks, and add it to the `BenchmarkTestHelpers` methods.
 
 ### A note about PCLMock
 
-`PCLMock` is a little different than the other libraries tested here, in that it requires explicitly generated mock classes. Compared against the other contenders, which use underlying parts of the framework like reflection to mock classes more "on the fly", `PCLMock` boasts much higher performance than its more dynamic counterparts, at the cost of some additional effort during development time.
+`PCLMock` is a little different than the other libraries tested here, in that it requires explicitly generated mock classes. Compared against the other contenders, which use underlying parts of the framework like reflection to mock classes more "on the fly", `PCLMock` boasts improved performance over its more dynamic counterparts, at the cost of some additional effort during development time.
 
 ## Tests
 
 These tests cover standard mocking framework functionality
 
- | Test                                         | How long does it take...                          |
- | -------------------------------------------- | ------------------------------------------------- |
- | [Construction](Results.md#construction)       | for a mock to be created?                         |
- | [Callback](Results.md#callback)               | for a mocked method to perform a callback?        |
- | [EmptyMethod](Results.md#emptymethod)         | for an un-setup method to be called?              |
- | [EmptyReturn](Results.md#emptyreturn)         | for an un-setup method to return default?         |
- | [Return](Results.md#return)                   | for a mocked method to return a value?            |
- | [Verify](Results.md#verify)                   | for verification that a method was called?        |
+ | Test                                          | How long does it take...                           |
+ | --------------------------------------------- | -------------------------------------------------- |
+ | [Construction](Results.md#construction)       | for a mock to be created?                          |
+ | [Callback](Results.md#callback)               | for a mocked method to perform a callback?         |
+ | [EmptyMethod](Results.md#emptymethod)         | for a mocked method to be called?                  |
+ | [EmptyReturn](Results.md#emptyreturn)         | for a mocked method to return default?             |
+ | [Return](Results.md#return)                   | for a mocked method to return a value?             |
+ | [Verify](Results.md#verify)                   | for verification that a method was called?         |
 
-Want to add more? PRs welcome! Just add a new class extending `MockingBenchmark` or `MockingBenchmark<T>`, depending on what you're testing.
+Want to add more? PRs welcome! Add a new class extending `MockingBenchmark` or `MockingBenchmark<T>`, depending on what you're testing, and a test case to `BenchmarkTests` with the relevant assertion.
 
 ### Results
 
