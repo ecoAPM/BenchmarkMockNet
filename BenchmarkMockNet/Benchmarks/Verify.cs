@@ -1,4 +1,4 @@
-using System;
+using System.Reflection;
 using BenchmarkDotNet.Attributes;
 using BenchmarkMockNet.PCLMock;
 using FakeItEasy;
@@ -16,7 +16,7 @@ namespace BenchmarkMockNet.Benchmarks
 		{
 			var stub = new ThingStub();
 			stub.DoSomething();
-			if (!stub.Called) throw new Exception();
+			if (!stub.Called) throw new TargetException();
 		}
 
 		[Benchmark]
