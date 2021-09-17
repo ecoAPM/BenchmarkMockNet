@@ -18,7 +18,6 @@ namespace BenchmarkMockNet
 
 		public static void Main(string[] args)
 		{
-			BenchmarkTests.RunAll();
 			if (args.Any(a => a.Contains("filter")))
 				Runner.Run(args);
 			else
