@@ -22,7 +22,7 @@ namespace BenchmarkMockNet.Benchmarks
 		[Benchmark]
 		public override void FakeItEasy()
 		{
-			var fake = A.Fake<IThingy>();
+			var fake = A.Fake<IThing>();
 			fake.DoSomething();
 			A.CallTo(() => fake.DoSomething()).MustHaveHappened();
 		}
@@ -30,7 +30,7 @@ namespace BenchmarkMockNet.Benchmarks
 		[Benchmark]
 		public override void Moq()
 		{
-			var mock = new Mock<IThingy>();
+			var mock = new Mock<IThing>();
 			mock.Object.DoSomething();
 			mock.Verify(m => m.DoSomething(), Times.AtLeastOnce);
 		}
@@ -38,7 +38,7 @@ namespace BenchmarkMockNet.Benchmarks
 		[Benchmark]
 		public override void NSubstitute()
 		{
-			var sub = Substitute.For<IThingy>();
+			var sub = Substitute.For<IThing>();
 			sub.DoSomething();
 			sub.Received().DoSomething();
 		}
@@ -46,7 +46,7 @@ namespace BenchmarkMockNet.Benchmarks
 		[Benchmark]
 		public override void PCLMock()
 		{
-			var mock = new ThingyMock();
+			var mock = new ThingMock();
 			mock.When(x => x.DoSomething());
 			mock.DoSomething();
 			mock.Verify(x => x.DoSomething()).WasCalledExactlyOnce();
@@ -55,7 +55,7 @@ namespace BenchmarkMockNet.Benchmarks
 		[Benchmark]
 		public override void Rocks()
 		{
-			var rock = Rock.Create<IThingy>();
+			var rock = Rock.Create<IThing>();
 			rock.Methods().DoSomething();
 			rock.Instance().DoSomething();
 			rock.Verify();

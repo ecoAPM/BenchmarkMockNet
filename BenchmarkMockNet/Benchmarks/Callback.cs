@@ -21,7 +21,7 @@ namespace BenchmarkMockNet.Benchmarks
 		public override bool FakeItEasy()
 		{
 			var called = false;
-			var fake = A.Fake<IThingy>();
+			var fake = A.Fake<IThing>();
 			A.CallTo(() => fake.DoSomething()).Invokes(() => called = true);
 			fake.DoSomething();
 			return called;
@@ -31,7 +31,7 @@ namespace BenchmarkMockNet.Benchmarks
 		public override bool Moq()
 		{
 			var called = false;
-			var mockSetup = new Mock<IThingy>();
+			var mockSetup = new Mock<IThing>();
 			var mock = mockSetup.Object;
 			mockSetup.Setup(m => m.DoSomething()).Callback(() => called = true);
 			mock.DoSomething();
@@ -42,7 +42,7 @@ namespace BenchmarkMockNet.Benchmarks
 		public override bool NSubstitute()
 		{
 			var called = false;
-			var sub = Substitute.For<IThingy>();
+			var sub = Substitute.For<IThing>();
 			sub.When(s => s.DoSomething()).Do(c => called = true);
 			sub.DoSomething();
 			return called;
@@ -52,7 +52,7 @@ namespace BenchmarkMockNet.Benchmarks
 		public override bool PCLMock()
 		{
 			var called = false;
-			var mock = new ThingyMock();
+			var mock = new ThingMock();
 			mock.When(x => x.DoSomething()).Do(() => called = true);
 			mock.DoSomething();
 			return called;
@@ -62,7 +62,7 @@ namespace BenchmarkMockNet.Benchmarks
 		public override bool Rocks()
 		{
 			var called = false;
-			var rock = Rock.Create<IThingy>();
+			var rock = Rock.Create<IThing>();
 			rock.Methods().DoSomething().Callback(() => called = true);
 			var chunk = rock.Instance();
 			chunk.DoSomething();

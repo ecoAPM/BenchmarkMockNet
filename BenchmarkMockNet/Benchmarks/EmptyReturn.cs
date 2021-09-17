@@ -19,28 +19,28 @@ namespace BenchmarkMockNet.Benchmarks
 		[Benchmark]
 		public override int FakeItEasy()
 		{
-			var fake = A.Fake<IThingy>();
+			var fake = A.Fake<IThing>();
 			return fake.Zero();
 		}
 
 		[Benchmark]
 		public override int Moq()
 		{
-			var mock = new Mock<IThingy>();
+			var mock = new Mock<IThing>();
 			return mock.Object.Zero();
 		}
 
 		[Benchmark]
 		public override int NSubstitute()
 		{
-			var sub = Substitute.For<IThingy>();
+			var sub = Substitute.For<IThing>();
 			return sub.Zero();
 		}
 
 		[Benchmark]
 		public override int PCLMock()
 		{
-			var mock = new ThingyMock();
+			var mock = new ThingMock();
 			mock.When(x => x.Zero());
 			return mock.Zero();
 		}
@@ -48,7 +48,7 @@ namespace BenchmarkMockNet.Benchmarks
 		[Benchmark]
 		public override int Rocks()
 		{
-			var chunk = Rock.Make<IThingy>().Instance();
+			var chunk = Rock.Make<IThing>().Instance();
 			return chunk.Zero();
 		}
 	}

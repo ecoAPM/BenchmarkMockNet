@@ -3,9 +3,9 @@
 namespace BenchmarkMockNet.PCLMock
 {
 	// you wouldn't normally write this by hand, but would instead use one of the code generators provided by PCLMock
-	public sealed class ThingyMock : MockBase<IThingy>, IThingy
+	public sealed class ThingMock : MockBase<IThing>, IThing
 	{
-		public ThingyMock(MockBehavior behavior = MockBehavior.Strict)
+		public ThingMock(MockBehavior behavior = MockBehavior.Strict)
 			: base(behavior)
 		{
 		}

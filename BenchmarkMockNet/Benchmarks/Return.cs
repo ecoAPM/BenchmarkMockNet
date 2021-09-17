@@ -19,7 +19,7 @@ namespace BenchmarkMockNet.Benchmarks
 		[Benchmark]
 		public override int FakeItEasy()
 		{
-			var fake = A.Fake<IThingy>();
+			var fake = A.Fake<IThing>();
 			A.CallTo(() => fake.One()).Returns(1);
 			return fake.One();
 		}
@@ -27,7 +27,7 @@ namespace BenchmarkMockNet.Benchmarks
 		[Benchmark]
 		public override int Moq()
 		{
-			var mock = new Mock<IThingy>();
+			var mock = new Mock<IThing>();
 			mock.Setup(m => m.One()).Returns(1);
 			return mock.Object.One();
 		}
@@ -35,7 +35,7 @@ namespace BenchmarkMockNet.Benchmarks
 		[Benchmark]
 		public override int NSubstitute()
 		{
-			var sub = Substitute.For<IThingy>();
+			var sub = Substitute.For<IThing>();
 			sub.One().Returns(1);
 			return sub.One();
 		}
@@ -43,7 +43,7 @@ namespace BenchmarkMockNet.Benchmarks
 		[Benchmark]
 		public override int PCLMock()
 		{
-			var mock = new ThingyMock();
+			var mock = new ThingMock();
 			mock.When(x => x.One()).Return(1);
 			return mock.One();
 		}
@@ -51,7 +51,7 @@ namespace BenchmarkMockNet.Benchmarks
 		[Benchmark]
 		public override int Rocks()
 		{
-			var rock = Rock.Create<IThingy>();
+			var rock = Rock.Create<IThing>();
 			rock.Methods().One().Returns(1);
 			return rock.Instance().One();
 		}

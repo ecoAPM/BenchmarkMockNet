@@ -7,24 +7,24 @@ using Rocks;
 
 namespace BenchmarkMockNet.Benchmarks
 {
-	public class Construction : MockingBenchmark<IThingy>
+	public class Construction : MockingBenchmark<IThing>
 	{
 		[Benchmark(Baseline = true)]
-		public override IThingy Stub() => new ThingStub();
+		public override IThing Stub() => new ThingStub();
 
 		[Benchmark]
-		public override IThingy FakeItEasy() => A.Fake<IThingy>();
+		public override IThing FakeItEasy() => A.Fake<IThing>();
 
 		[Benchmark]
-		public override IThingy Moq() => new Mock<IThingy>().Object;
+		public override IThing Moq() => new Mock<IThing>().Object;
 
 		[Benchmark]
-		public override IThingy NSubstitute() => Substitute.For<IThingy>();
+		public override IThing NSubstitute() => Substitute.For<IThing>();
 
 		[Benchmark]
-		public override IThingy PCLMock() => new ThingyMock();
+		public override IThing PCLMock() => new ThingMock();
 
 		[Benchmark]
-		public override IThingy Rocks() => Rock.Make<IThingy>().Instance();
+		public override IThing Rocks() => Rock.Make<IThing>().Instance();
 	}
 }

@@ -1,6 +1,6 @@
 ﻿namespace BenchmarkMockNet
 {
-	public interface IThingy
+	public interface IThing
 	{
 		void DoSomething();
 		void DoNothing();

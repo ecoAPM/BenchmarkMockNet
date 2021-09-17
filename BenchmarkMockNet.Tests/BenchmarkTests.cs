@@ -13,7 +13,7 @@ namespace BenchmarkMockNet.Tests
 
 		private static readonly Dictionary<Type, Func<object?, bool>> Benchmarks = new()
 		{
-			{ typeof(Construction), result => result is IThingy },
+			{ typeof(Construction), result => result is IThing },
 			{ typeof(Callback),     result => result is true },
 			{ typeof(EmptyMethod),  result => result is null },
 			{ typeof(EmptyReturn),  result => result is 0 },

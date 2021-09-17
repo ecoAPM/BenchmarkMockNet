@@ -1,6 +1,6 @@
 ﻿namespace BenchmarkMockNet
 {
-	public class ThingStub : IThingy
+	public class ThingStub : IThing
 	{
 		public bool Called { get; private set; }
 
