@@ -30,14 +30,15 @@ Want to add more? PRs welcome! Add a method to `IMockingBenchmark` and `IMocking
 
 These tests cover standard mocking framework functionality
 
- | Test                                          | How long does it take...                           |
- | --------------------------------------------- | -------------------------------------------------- |
- | [Construction](Results.md#construction)       | for a mock to be created?                          |
- | [Callback](Results.md#callback)               | for a mocked method to perform a callback?         |
- | [EmptyMethod](Results.md#emptymethod)         | for a mocked method to be called?                  |
- | [EmptyReturn](Results.md#emptyreturn)         | for a mocked method to return default?             |
- | [Return](Results.md#return)                   | for a mocked method to return a value?             |
- | [Verify](Results.md#verify)                   | for verification that a method was called?         |
+| Test                                     | How long does it take...                           |
+| ---------------------------------------- | -------------------------------------------------- |
+| [Construction](Results.md#construction)  | for a mock to be created?                          |
+| [Callback](Results.md#callback)          | for a mocked method to perform a callback?         |
+| [EmptyMethod](Results.md#emptymethod)    | for a mocked method to be called?                  |
+| [EmptyReturn](Results.md#emptyreturn)    | for a mocked method to return default?             |
+| [OneParameter](Results.md#oneparameter)  | for a mocked method to be called with a parameter? |
+| [Return](Results.md#return)              | for a mocked method to return a value?             |
+| [Verify](Results.md#verify)              | for verification that a method was called?         |
 
 Want to add more? PRs welcome! Add a new class extending `MockingBenchmark` or `MockingBenchmark<T>`, depending on what you're testing, and a test case to `BenchmarkTests` with the relevant assertion.
 
