@@ -1,4 +1,4 @@
-﻿using BenchmarkDotNet.Attributes;
+using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Engines;
 
 namespace BenchmarkMockNet
@@ -13,6 +13,7 @@ namespace BenchmarkMockNet
 		public abstract T Rocks();
 		public abstract T Stub();
 		public abstract T PCLMock();
+		public abstract T JustMockLite();
 	}
 
 	[MemoryDiagnoser]
@@ -25,5 +26,6 @@ namespace BenchmarkMockNet
 		public abstract void FakeItEasy();
 		public abstract void Rocks();
 		public abstract void PCLMock();
+		public abstract void JustMockLite();
 	}
 }

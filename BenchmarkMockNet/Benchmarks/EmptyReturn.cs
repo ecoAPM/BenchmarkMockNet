@@ -4,6 +4,7 @@ using FakeItEasy;
 using Moq;
 using NSubstitute;
 using Rocks;
+using JustMock = Telerik.JustMock.Mock;
 
 namespace BenchmarkMockNet.Benchmarks
 {
@@ -21,6 +22,14 @@ namespace BenchmarkMockNet.Benchmarks
 		{
 			var fake = A.Fake<IThing>();
 			return fake.Zero();
+		}
+
+		[Benchmark]
+		public override int JustMockLite()
+		{
+			JustMock.Reset();
+			var thing = JustMock.Create<IThing>();
+			return thing.Zero();
 		}
 
 		[Benchmark]
