@@ -1,9 +1,10 @@
-﻿using BenchmarkDotNet.Attributes;
+using BenchmarkDotNet.Attributes;
 using BenchmarkMockNet.PCLMock;
 using FakeItEasy;
 using Moq;
 using NSubstitute;
 using Rocks;
+using TelerikMock = Telerik.JustMock.Mock;
 
 namespace BenchmarkMockNet.Benchmarks
 {
@@ -14,6 +15,9 @@ namespace BenchmarkMockNet.Benchmarks
 
 		[Benchmark]
 		public override IThing FakeItEasy() => A.Fake<IThing>();
+
+		[Benchmark]
+		public override IThing JustMock() => TelerikMock.Create<IThing>();
 
 		[Benchmark]
 		public override IThing Moq() => new Mock<IThing>().Object;
