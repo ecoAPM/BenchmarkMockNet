@@ -31,11 +31,18 @@ namespace BenchmarkMockNet.Benchmarks
 		[Benchmark]
 		public override bool JustMock()
 		{
-			var called = false;
-			var thing = TelerikMock.Create<IThing>();
-			TelerikMock.Arrange(() => thing.DoSomething()).DoInstead(() => called = true);
-			thing.DoSomething();
-			return called;
+			try
+			{
+				var called = false;
+				var thing = TelerikMock.Create<IThing>();
+				TelerikMock.Arrange(() => thing.DoSomething()).DoInstead(() => called = true);
+				thing.DoSomething();
+				return called;
+			}
+			finally
+			{
+				TelerikMock.Reset();
+			}
 		}
 
 		[Benchmark]

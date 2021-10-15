@@ -17,7 +17,17 @@ namespace BenchmarkMockNet.Benchmarks
 		public override IThing FakeItEasy() => A.Fake<IThing>();
 
 		[Benchmark]
-		public override IThing JustMock() => TelerikMock.Create<IThing>();
+		public override IThing JustMock()
+		{
+			try
+			{
+				return TelerikMock.Create<IThing>();
+			}
+			finally
+			{
+				TelerikMock.Reset();
+			}
+		}
 
 		[Benchmark]
 		public override IThing Moq() => new Mock<IThing>().Object;

@@ -27,8 +27,15 @@ namespace BenchmarkMockNet.Benchmarks
 		[Benchmark]
 		public override void JustMock()
 		{
-			var thing = TelerikMock.Create<IThing>();
-			thing.OneParameter(0);
+			try
+			{
+				var thing = TelerikMock.Create<IThing>();
+				thing.OneParameter(0);
+			}
+			finally
+			{
+				TelerikMock.Reset();
+			}
 		}
 
 		[Benchmark]
