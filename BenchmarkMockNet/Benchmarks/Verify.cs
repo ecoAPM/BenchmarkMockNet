@@ -5,7 +5,7 @@ using FakeItEasy;
 using Moq;
 using NSubstitute;
 using Rocks;
-using TelerikMock = Telerik.JustMock.Mock;
+using JustMock = Telerik.JustMock.Mock;
 using Times = Moq.Times;
 
 namespace BenchmarkMockNet.Benchmarks
@@ -29,19 +29,13 @@ namespace BenchmarkMockNet.Benchmarks
 		}
 
 		[Benchmark]
-		public override void JustMock()
+		public override void JustMockLite()
 		{
-			try
-			{
-				var thing = TelerikMock.Create<IThing>();
-				TelerikMock.Arrange(() => thing.DoSomething());
-				thing.DoSomething();
-				TelerikMock.Assert(thing);
-			}
-			finally
-			{
-				TelerikMock.Reset();
-			}
+			JustMock.Reset();
+			var thing = JustMock.Create<IThing>();
+			JustMock.Arrange(() => thing.DoSomething());
+			thing.DoSomething();
+			JustMock.Assert(thing);
 		}
 
 		[Benchmark]

@@ -4,7 +4,7 @@ using FakeItEasy;
 using Moq;
 using NSubstitute;
 using Rocks;
-using TelerikMock = Telerik.JustMock.Mock;
+using JustMock = Telerik.JustMock.Mock;
 
 namespace BenchmarkMockNet.Benchmarks
 {
@@ -29,20 +29,14 @@ namespace BenchmarkMockNet.Benchmarks
 		}
 
 		[Benchmark]
-		public override bool JustMock()
+		public override bool JustMockLite()
 		{
-			try
-			{
-				var called = false;
-				var thing = TelerikMock.Create<IThing>();
-				TelerikMock.Arrange(() => thing.DoSomething()).DoInstead(() => called = true);
-				thing.DoSomething();
-				return called;
-			}
-			finally
-			{
-				TelerikMock.Reset();
-			}
+			JustMock.Reset();
+			var called = false;
+			var thing = JustMock.Create<IThing>();
+			JustMock.Arrange(() => thing.DoSomething()).DoInstead(() => called = true);
+			thing.DoSomething();
+			return called;
 		}
 
 		[Benchmark]

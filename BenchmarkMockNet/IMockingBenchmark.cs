@@ -3,7 +3,7 @@ namespace BenchmarkMockNet
 	public interface IMockingBenchmark<out T>
 	{
 		T Stub();
-		T JustMock();
+		T JustMockLite();
 		T Moq();
 		T NSubstitute();
 		T FakeItEasy();
@@ -14,7 +14,7 @@ namespace BenchmarkMockNet
 	public interface IMockingBenchmark
 	{
 		void Stub();
-		void JustMock();
+		void JustMockLite();
 		void Moq();
 		void NSubstitute();
 		void FakeItEasy();
