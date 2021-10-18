@@ -33,6 +33,6 @@ namespace BenchmarkMockNet.Benchmarks
 		public override IThing PCLMock() => new ThingMock();
 
 		[Benchmark]
-		public override IThing Rocks() => Rock.Make<IThing>().Instance();
+		public override IThing Rocks() => Rock.Create<IThing>().Instance();
 	}
 }
