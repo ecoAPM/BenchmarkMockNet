@@ -34,11 +34,11 @@ These tests cover standard mocking framework functionality
 | Test                                     | How long does it take...                           |
 | ---------------------------------------- | -------------------------------------------------- |
 | [Construction](Results.md#construction)  | for a mock to be created?                          |
-| [Callback](Results.md#callback)          | for a mocked method to perform a callback?         |
-| [EmptyMethod](Results.md#emptymethod)    | for a mocked method to be called?                  |
-| [EmptyReturn](Results.md#emptyreturn)    | for a mocked method to return default?             |
-| [OneParameter](Results.md#oneparameter)  | for a mocked method to be called with a parameter? |
 | [Return](Results.md#return)              | for a mocked method to return a value?             |
+| [EmptyReturn](Results.md#emptyreturn)    | for a mocked method to return default?             |
+| [EmptyMethod](Results.md#emptymethod)    | for a mocked method to be called?                  |
+| [OneParameter](Results.md#oneparameter)  | for a mocked method to be called with a parameter? |
+| [Callback](Results.md#callback)          | for a mocked method to perform a callback?         |
 | [Verify](Results.md#verify)              | for verification that a method was called?         |
 
 Want to add more? PRs welcome! Add a new class extending `MockingBenchmark` or `MockingBenchmark<T>`, depending on what you're testing, and a test case to `BenchmarkTests` with the relevant assertion.
