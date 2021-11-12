@@ -31,7 +31,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - name: Setup .NET Core
+    - name: Setup .NET
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 6.0.x
@@ -41,13 +41,13 @@ jobs:
 
     - name: Run benchmarks
       run: dotnet BenchmarkMockNet.dll
-      working-directory: BenchmarkMockNet/bin/Release/net5.0/publish
+      working-directory: BenchmarkMockNet/bin/Release/net6.0/publish
 
     - name: Upload results
       uses: actions/upload-artifact@v2
       with:
         name: Results
-        path: BenchmarkMockNet/bin/Release/net5.0/publish/BenchmarkDotNet.Artifacts/results/*.md
+        path: BenchmarkMockNet/bin/Release/net6.0/publish/BenchmarkDotNet.Artifacts/results/*.md
 
   Code-Quality:
     needs: Build
@@ -60,7 +60,12 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Setup .NET
+      - name: Setup .NET 5
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 5.0.x
+
+      - name: Setup .NET 6
         uses: actions/setup-dotnet@v1
         with:
           dotnet-version: 6.0.x
