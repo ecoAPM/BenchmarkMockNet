@@ -1,11 +1,10 @@
-namespace BenchmarkMockNet
+namespace BenchmarkMockNet;
+
+public interface IThing
 {
-	public interface IThing
-	{
-		void DoSomething();
-		void DoNothing();
-		int One();
-		int Zero();
-		void OneParameter(int a);
-	}
+	void DoSomething();
+	void DoNothing();
+	int One();
+	int Zero();
+	void OneParameter(int a);
 }

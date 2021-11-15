@@ -1,23 +1,22 @@
-namespace BenchmarkMockNet
+namespace BenchmarkMockNet;
+
+public class ThingStub : IThing
 {
-	public class ThingStub : IThing
+	public bool Called { get; private set; }
+
+	public void DoSomething() => Called = true;
+
+	public void DoNothing()
 	{
-		public bool Called { get; private set; }
+		//this page intentionally left blank
+	}
 
-		public void DoSomething() => Called = true;
+	public int One() => 1;
 
-		public void DoNothing()
-		{
-			//this page intentionally left blank
-		}
+	public int Zero() => 0;
 
-		public int One() => 1;
-
-		public int Zero() => 0;
-
-		public void OneParameter(int a)
-		{
-			//this page intentionally left blank
-		}
+	public void OneParameter(int a)
+	{
+		//this page intentionally left blank
 	}
 }

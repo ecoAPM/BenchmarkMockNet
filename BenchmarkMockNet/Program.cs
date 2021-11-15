@@ -2,12 +2,12 @@ using System.Linq;
 using BenchmarkDotNet.Running;
 using BenchmarkMockNet.Benchmarks;
 
-namespace BenchmarkMockNet
+namespace BenchmarkMockNet;
+
+public static class Program
 {
-	public static class Program
+	private static readonly BenchmarkSwitcher Runner = new(new[]
 	{
-		private static readonly BenchmarkSwitcher Runner = new(new[]
-		{
 			typeof(Construction),
 			typeof(Callback),
 			typeof(EmptyMethod),
@@ -17,12 +17,11 @@ namespace BenchmarkMockNet
 			typeof(OneParameter)
 		});
 
-		public static void Main(string[] args)
-		{
-			if (args.Any(a => a.Contains("filter")))
-				Runner.Run(args);
-			else
-				Runner.RunAll();
-		}
+	public static void Main(string[] args)
+	{
+		if (args.Any(a => a.Contains("filter")))
+			Runner.Run(args);
+		else
+			Runner.RunAll();
 	}
 }
