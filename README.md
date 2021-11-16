@@ -21,7 +21,14 @@ The baseline is a simple [stub class](ThingStub.cs).
 - [PCLMock](https://github.com/kentcb/PCLMock)
 - [Rocks](https://github.com/JasonBock/Rocks)
 
-Want to add more? PRs welcome! Add a method to `IMockingBenchmark` and `IMockingBenchmark<T>`, implement it in each of the benchmarks, and add it to the `BenchmarkTestHelpers` methods.
+Want to add more? PRs welcome!
+- Add a method named after the framework to
+	- `IMockingBenchmark`
+	- `IMockingBenchmark<T>`
+	- `MockingBenchmark`
+	- `MockingBenchmark<T>`
+- Implement it in each of classes in the `Benchmarks` directory
+- Add a reference to it in `All.Frameworks`
 
 ### A note about PCLMock
 

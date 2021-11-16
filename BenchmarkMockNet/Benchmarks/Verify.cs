@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using System.Reflection;
 using BenchmarkDotNet.Attributes;
 using BenchmarkMockNet.PCLMock;
@@ -10,6 +11,7 @@ using Times = Moq.Times;
 
 namespace BenchmarkMockNet.Benchmarks;
 
+[Description("Verifies that the method was called")]
 public class Verify : MockingBenchmark
 {
 	[Benchmark(Baseline = true)]
@@ -17,7 +19,10 @@ public class Verify : MockingBenchmark
 	{
 		var stub = new ThingStub();
 		stub.DoSomething();
-		if (!stub.Called) throw new TargetException();
+		if (!stub.Called)
+		{
+			throw new TargetException();
+		}
 	}
 
 	[Benchmark]

@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using BenchmarkDotNet.Attributes;
 using BenchmarkMockNet.PCLMock;
 using FakeItEasy;
@@ -8,6 +9,7 @@ using JustMock = Telerik.JustMock.Mock;
 
 namespace BenchmarkMockNet.Benchmarks;
 
+[Description("This test simply creates an `IThing` object to test using the given framework")]
 public class Construction : MockingBenchmark<IThing>
 {
 	[Benchmark(Baseline = true)]

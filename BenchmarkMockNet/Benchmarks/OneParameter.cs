@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using BenchmarkDotNet.Attributes;
 using BenchmarkMockNet.PCLMock;
 using FakeItEasy;
@@ -8,6 +9,7 @@ using JustMock = Telerik.JustMock.Mock;
 
 namespace BenchmarkMockNet.Benchmarks;
 
+[Description("A mock object is created, with no method setup, and a method with no return value requiring an `int` parameter is called")]
 public class OneParameter : MockingBenchmark
 {
 	[Benchmark(Baseline = true)]

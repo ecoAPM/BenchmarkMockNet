@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using BenchmarkDotNet.Attributes;
 using BenchmarkMockNet.PCLMock;
 using FakeItEasy;
@@ -8,6 +9,7 @@ using JustMock = Telerik.JustMock.Mock;
 
 namespace BenchmarkMockNet.Benchmarks;
 
+[Description("A mock object is created, a method is setup with a callback, and that method is called")]
 public class Callback : MockingBenchmark<bool>
 {
 	[Benchmark(Baseline = true)]

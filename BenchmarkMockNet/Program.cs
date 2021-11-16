@@ -1,27 +1,24 @@
-using System.Linq;
+using System.IO.Abstractions;
 using BenchmarkDotNet.Running;
-using BenchmarkMockNet.Benchmarks;
 
 namespace BenchmarkMockNet;
 
 public static class Program
 {
-	private static readonly BenchmarkSwitcher Runner = new(new[]
+	public static async Task Main(string[] args)
 	{
-			typeof(Construction),
-			typeof(Callback),
-			typeof(EmptyMethod),
-			typeof(EmptyReturn),
-			typeof(Return),
-			typeof(Verify),
-			typeof(OneParameter)
-		});
-
-	public static void Main(string[] args)
-	{
+		var runner = new BenchmarkSwitcher(All.Benchmarks);
 		if (args.Any(a => a.Contains("filter")))
-			Runner.Run(args);
-		else
-			Runner.RunAll();
+		{
+			runner.Run(args);
+			return;
+		}
+
+		runner.RunAll();
+
+		Console.WriteLine("Creating report...");
+		var fs = new FileSystem();
+		await new Report(fs).Save();
+		Console.WriteLine("Done!");
 	}
 }

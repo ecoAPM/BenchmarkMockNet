@@ -43,10 +43,16 @@ jobs:
       run: dotnet BenchmarkMockNet.dll
       working-directory: BenchmarkMockNet/bin/Release/net6.0/publish
 
-    - name: Upload results
+    - name: Upload results report
       uses: actions/upload-artifact@v2
       with:
-        name: Results
+        name: Results Report
+        path: BenchmarkMockNet/bin/Release/net6.0/publish/Results.md
+
+    - name: Upload raw results
+      uses: actions/upload-artifact@v2
+      with:
+        name: Raw Results
         path: BenchmarkMockNet/bin/Release/net6.0/publish/BenchmarkDotNet.Artifacts/results/*.md
 
   Code-Quality:
