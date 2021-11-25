@@ -44,8 +44,8 @@ public class Report
 			var file = Path.Combine("BenchmarkDotNet.Artifacts", "results", $"{benchmark.FullName}-report-github.md");
 			var content = await _fs.File.ReadAllTextAsync(file);
 			var table = content.Split("```").Last().Replace(content, "")
-				.Replace(" ns", " ns")
-				.Replace(" B", " B");
+				.Replace(" ns", "\u202Fns")
+				.Replace(" B", "\u202FB");
 
 			_output.AppendLine(table);
 		}
