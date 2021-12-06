@@ -1,0 +1,35 @@
+name: CI
+
+on:
+  push
+
+jobs:
+  Publish:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 6.0.x
+
+    - name: Build benchmarks
+      run: dotnet publish -c Release
+
+    - name: Run benchmarks
+      run: dotnet BenchmarkMockNet.dll
+      working-directory: BenchmarkMockNet/bin/Release/net6.0/publish
+
+    - name: Upload results report
+      uses: actions/upload-artifact@v2
+      with:
+        name: Results Report
+        path: BenchmarkMockNet/bin/Release/net6.0/publish/Results.md
+
+    - name: Upload raw results
+      uses: actions/upload-artifact@v2
+      with:
+        name: Raw Results
+        path: BenchmarkMockNet/bin/Release/net6.0/publish/BenchmarkDotNet.Artifacts/results/*.md
