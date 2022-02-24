@@ -12,7 +12,7 @@ This repo contains the code for, and results of, a series of performance benchma
 
 ## Current contenders (alphabetical order)
 
-The baseline is a simple [stub class](ThingStub.cs).
+The baseline is a simple [stub class](BenchmarkMockNet/ThingStub.cs).
 
 - [FakeItEasy](https://fakeiteasy.github.io)
 - [JustMockLite](https://www.telerik.com/justmock/free-mocking)
