@@ -3,6 +3,7 @@ using BenchmarkMockNet.Benchmarks;
 using FakeItEasy;
 using Moq;
 using NSubstitute;
+using PCLMock;
 using Rocks;
 using Callback = BenchmarkMockNet.Benchmarks.Callback;
 using JustMock = Telerik.JustMock.Mock;
@@ -28,7 +29,7 @@ public static class All
 		typeof(JustMock).Assembly.GetName(),
 		typeof(Mock).Assembly.GetName(),
 		typeof(Substitute).Assembly.GetName(),
-		typeof(MockBehavior).Assembly.GetName(),
+		typeof(MockBase<byte>).Assembly.GetName(),
 		typeof(Rock).Assembly.GetName()
 	};
 }

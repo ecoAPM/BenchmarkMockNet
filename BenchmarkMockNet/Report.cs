@@ -1,7 +1,8 @@
 using System.ComponentModel;
 using System.IO.Abstractions;
+using System.Reflection;
 using System.Text;
-using BenchmarkMockNet.Benchmarks;
+using System.Xml.Linq;
 
 namespace BenchmarkMockNet;
 
@@ -24,7 +25,7 @@ public class Report
 		_output.AppendLine($"## Official Run: {DateTime.Today:d}");
 		_output.AppendLine();
 
-		ListFrameworks();
+		await ListFrameworks();
 		_output.AppendLine();
 
 		await OutputResults();
@@ -51,13 +52,26 @@ public class Report
 		}
 	}
 
-	private void ListFrameworks()
+	private async Task ListFrameworks()
 	{
+		var deps = await GetDependencies();
+		var matches = deps
+			.Where(f => All.Frameworks.Any(a => a.Name!.Contains(f.Key) || f.Key.Contains(a.Name)))
+			.OrderBy(f => f.Key);
+
 		_output.AppendLine("| Framework | Version |");
 		_output.AppendLine("|-----------|---------|");
-		foreach (var framework in All.Frameworks)
+		foreach (var (name, version) in matches)
 		{
-			_output.AppendLine($"| {framework.Name} | {framework.Version} |");
+			_output.AppendLine($"| {name} | {version} |");
 		}
+	}
+
+	private async Task<IDictionary<string, string>> GetDependencies()
+	{
+		var text = await _fs.File.ReadAllTextAsync("BenchmarkMockNet.csproj");
+		var xml = XDocument.Parse(text);
+		return xml.Root!.Descendants("PackageReference")
+			.ToDictionary(p => p.Attribute("Include")!.Value, p => p.Attribute("Version")!.Value);
 	}
 }
