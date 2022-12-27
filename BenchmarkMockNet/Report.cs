@@ -69,7 +69,7 @@ public class Report
 
 	private async Task<IDictionary<string, string>> GetDependencies()
 	{
-		var text = await _fs.File.ReadAllTextAsync("BenchmarkMockNet.csproj");
+		var text = await _fs.File.ReadAllTextAsync("../../../../BenchmarkMockNet.csproj");
 		var xml = XDocument.Parse(text);
 		return xml.Root!.Descendants("PackageReference")
 			.ToDictionary(p => p.Attribute("Include")!.Value, p => p.Attribute("Version")!.Value);

@@ -4,7 +4,7 @@ using BenchmarkDotNet.Engines;
 namespace BenchmarkMockNet;
 
 [MemoryDiagnoser]
-[SimpleJob(RunStrategy.ColdStart, 1, 0, 3, 50_000)]
+[SimpleJob(RunStrategy.ColdStart, 1, 0, 3, 100_000)]
 public abstract class MockingBenchmark<T> : IMockingBenchmark<T>
 {
 	public abstract T FakeItEasy();
@@ -17,7 +17,7 @@ public abstract class MockingBenchmark<T> : IMockingBenchmark<T>
 }
 
 [MemoryDiagnoser]
-[SimpleJob(RunStrategy.ColdStart, 1, 0, 3, 50_000)]
+[SimpleJob(RunStrategy.ColdStart, 1, 0, 3, 100_000)]
 public abstract class MockingBenchmark : IMockingBenchmark
 {
 	public abstract void Stub();

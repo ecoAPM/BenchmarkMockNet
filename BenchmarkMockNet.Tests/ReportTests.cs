@@ -11,7 +11,7 @@ public class ReportTests
 	{
 		//arrange
 		var fs = Substitute.For<IFileSystem>();
-		var projectFile = await File.ReadAllTextAsync("BenchmarkMockNet.csproj");
+		var projectFile = await File.ReadAllTextAsync("../../../../BenchmarkMockNet/BenchmarkMockNet.csproj");
 		fs.File.ReadAllTextAsync(Arg.Any<string>()).Returns(projectFile);
 		var report = new Report(fs);
 
