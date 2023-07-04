@@ -10,7 +10,7 @@
 
 	<ItemGroup>
 		<PackageReference Include="BenchmarkDotNet" Version="0.13.5"/>
-		<PackageReference Include="JustMock" Version="2023.2.601.35"/>
+		<PackageReference Include="JustMock" Version="2023.2.629.130"/>
 		<PackageReference Include="Moq" Version="4.18.4"/>
 		<PackageReference Include="NSubstitute" Version="5.0.0"/>
 		<PackageReference Include="FakeItEasy" Version="7.4.0"/>
