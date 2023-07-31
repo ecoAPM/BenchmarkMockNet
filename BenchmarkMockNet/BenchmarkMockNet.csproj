@@ -9,14 +9,14 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="BenchmarkDotNet" Version="0.13.6"/>
+		<PackageReference Include="BenchmarkDotNet" Version="0.13.7"/>
 		<PackageReference Include="JustMock" Version="2023.2.719.137"/>
-		<PackageReference Include="Moq" Version="4.18.4"/>
+		<PackageReference Include="Moq" Version="4.20.69"/>
 		<PackageReference Include="NSubstitute" Version="5.0.0"/>
 		<PackageReference Include="FakeItEasy" Version="7.4.0"/>
 		<PackageReference Include="PCLMock" Version="5.1.3"/>
-		<PackageReference Include="Rocks" Version="7.1.2"/>
-		<PackageReference Include="System.IO.Abstractions" Version="19.2.29"/>
+		<PackageReference Include="Rocks" Version="7.1.3"/>
+		<PackageReference Include="System.IO.Abstractions" Version="19.2.67"/>
 	</ItemGroup>
 
 </Project>
