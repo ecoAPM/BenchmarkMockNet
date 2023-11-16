@@ -13,23 +13,23 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v3
       with:
-        dotnet-version: 7.0.x
+        dotnet-version: 8.0.x
 
     - name: Build benchmarks
       run: dotnet publish -c Release
 
     - name: Run benchmarks
       run: dotnet BenchmarkMockNet.dll
-      working-directory: BenchmarkMockNet/bin/Release/net7.0/publish
+      working-directory: BenchmarkMockNet/bin/Release/net8.0/publish
 
     - name: Upload results report
       uses: actions/upload-artifact@v3
       with:
         name: Results Report
-        path: BenchmarkMockNet/bin/Release/net7.0/publish/Results.md
+        path: BenchmarkMockNet/bin/Release/net8.0/publish/Results.md
 
     - name: Upload raw results
       uses: actions/upload-artifact@v3
       with:
         name: Raw Results
-        path: BenchmarkMockNet/bin/Release/net7.0/publish/BenchmarkDotNet.Artifacts/results/*.md
+        path: BenchmarkMockNet/bin/Release/net8.0/publish/BenchmarkDotNet.Artifacts/results/*.md
