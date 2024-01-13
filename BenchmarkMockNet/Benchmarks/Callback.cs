@@ -76,10 +76,10 @@ public class Callback : MockingBenchmark<bool>
 	public override bool Rocks()
 	{
 		var called = false;
-		var rock = Rock.Create<IThing>();
-		rock.Methods().DoSomething().Callback(() => called = true);
-		var chunk = rock.Instance();
-		chunk.DoSomething();
+		var expectations = new IThingCreateExpectations();
+		expectations.Methods.DoSomething().Callback(() => called = true);
+		var mock = expectations.Instance();
+		mock.DoSomething();
 		return called;
 	}
 }

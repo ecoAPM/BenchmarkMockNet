@@ -59,9 +59,9 @@ public class EmptyMethod : MockingBenchmark
 	[Benchmark]
 	public override void Rocks()
 	{
-		var chunk = Rock.Create<IThing>();
-		chunk.Methods().DoNothing();
-		var rock = chunk.Instance();
-		rock.DoNothing();
+		var expectations = new IThingCreateExpectations();
+		expectations.Methods.DoNothing();
+		var mock = expectations.Instance();
+		mock.DoNothing();
 	}
 }

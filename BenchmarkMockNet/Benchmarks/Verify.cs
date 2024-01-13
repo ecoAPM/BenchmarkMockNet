@@ -71,9 +71,9 @@ public class Verify : MockingBenchmark
 	[Benchmark]
 	public override void Rocks()
 	{
-		var rock = Rock.Create<IThing>();
-		rock.Methods().DoSomething();
-		rock.Instance().DoSomething();
-		rock.Verify();
+		var expectations = new IThingCreateExpectations();
+		expectations.Methods.DoSomething();
+		expectations.Instance().DoSomething();
+		expectations.Verify();
 	}
 }

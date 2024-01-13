@@ -59,8 +59,8 @@ public class OneParameter : MockingBenchmark
 	[Benchmark]
 	public override void Rocks()
 	{
-		var rock = Rock.Create<IThing>();
-		rock.Methods().OneParameter(0);
-		rock.Instance().OneParameter(0);
+		var expectations = new IThingCreateExpectations();
+		expectations.Methods.OneParameter(0);
+		expectations.Instance().OneParameter(0);
 	}
 }
