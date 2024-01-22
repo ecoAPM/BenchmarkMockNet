@@ -1,4 +1,4 @@
-﻿using System.Reflection;
+using System.Reflection;
 using BenchmarkMockNet.Benchmarks;
 using FakeItEasy;
 using Moq;
@@ -30,6 +30,6 @@ public static class All
 		typeof(Mock).Assembly.GetName(),
 		typeof(Substitute).Assembly.GetName(),
 		typeof(MockBase<byte>).Assembly.GetName(),
-		typeof(Rock).Assembly.GetName()
+		typeof(RockCreateAttribute<>).Assembly.GetName()
 	};
 }

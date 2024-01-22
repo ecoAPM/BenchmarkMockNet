@@ -35,5 +35,5 @@ public class Construction : MockingBenchmark<IThing>
 	public override IThing PCLMock() => new ThingMock();
 
 	[Benchmark]
-	public override IThing Rocks() => Rock.Create<IThing>().Instance();
+	public override IThing Rocks() => new IThingCreateExpectations().Instance();
 }

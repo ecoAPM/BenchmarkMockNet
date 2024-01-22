@@ -59,9 +59,9 @@ public class EmptyReturn : MockingBenchmark<int>
 	[Benchmark]
 	public override int Rocks()
 	{
-		var chunk = Rock.Create<IThing>();
-		chunk.Methods().Zero().Returns(0);
-		var rock = chunk.Instance();
-		return rock.Zero();
+		var expectations = new IThingCreateExpectations();
+		expectations.Methods.Zero().ReturnValue(0);
+		var mock = expectations.Instance();
+		return mock.Zero();
 	}
 }

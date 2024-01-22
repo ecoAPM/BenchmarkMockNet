@@ -63,8 +63,8 @@ public class Return : MockingBenchmark<int>
 	[Benchmark]
 	public override int Rocks()
 	{
-		var rock = Rock.Create<IThing>();
-		rock.Methods().One().Returns(1);
-		return rock.Instance().One();
+		var expectations = new IThingCreateExpectations();
+		expectations.Methods.One().ReturnValue(1);
+		return expectations.Instance().One();
 	}
 }
