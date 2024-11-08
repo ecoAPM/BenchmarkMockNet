@@ -23,13 +23,13 @@ jobs:
       working-directory: BenchmarkMockNet/bin/Release/net8.0/publish
 
     - name: Upload results report
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: Results Report
         path: BenchmarkMockNet/bin/Release/net8.0/publish/Results.md
 
     - name: Upload raw results
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: Raw Results
         path: BenchmarkMockNet/bin/Release/net8.0/publish/BenchmarkDotNet.Artifacts/results/*.md
