@@ -67,6 +67,6 @@ Latest official results from the GitHub Actions workflow are available on the [R
 
 ### Usage
 
-1. Once restored and built, run `dotnet bin/Release/net8.0/publish/BenchmarkMockNet.dll` to execute the benchmarks
+1. Once restored and built, run `dotnet bin/Release/net9.0/publish/BenchmarkMockNet.dll` to execute the benchmarks
 2. Benchmarks will take about 5 minutes to run
 3. Results are stored in the `BenchmarkDotNet.Artifacts` directory, in both HTML and Markdown formats
