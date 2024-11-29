@@ -40,11 +40,12 @@ public class Report
 			_output.AppendLine();
 
 			var description = benchmark.CustomAttributes.First(a => a.AttributeType == typeof(DescriptionAttribute));
-			_output.AppendLine(description.ConstructorArguments.First().Value?.ToString());
+			_output.AppendLine(description.ConstructorArguments[0].Value?.ToString());
 
 			var file = Path.Combine("BenchmarkDotNet.Artifacts", "results", $"{benchmark.FullName}-report-github.md");
 			var content = await _fs.File.ReadAllTextAsync(file);
-			var table = content.Split("```").Last().Replace(content, "")
+			var sections = content.Split("```");
+			var table = sections[^1].Replace(content, "")
 				.Replace(" ns", "\u202Fns")
 				.Replace(" B", "\u202FB");
 
