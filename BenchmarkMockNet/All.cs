@@ -30,6 +30,6 @@ public static class All
 		typeof(Mock).Assembly.GetName(),
 		typeof(Substitute).Assembly.GetName(),
 		typeof(MockBase<byte>).Assembly.GetName(),
-		typeof(RockCreateAttribute<>).Assembly.GetName()
+		typeof(RockAttribute).Assembly.GetName()
 	};
 }

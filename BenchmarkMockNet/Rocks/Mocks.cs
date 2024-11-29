@@ -1,4 +1,4 @@
 using BenchmarkMockNet;
 using Rocks;
 
-[assembly: RockCreate<IThing>]
+[assembly: Rock(typeof(IThing), BuildType.Create)]
