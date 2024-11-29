@@ -1,13 +1,10 @@
-using System.Reflection;
 using BenchmarkMockNet.Benchmarks;
 using Xunit;
 
 namespace BenchmarkMockNet.Tests;
 
-public static class BenchmarkTests
+public class BenchmarkTests
 {
-	private static readonly MethodInfo[] Methods = typeof(IMockingBenchmark).GetMethods();
-
 	private static readonly Dictionary<Type, Func<object?, bool>> Benchmarks = new()
 	{
 		{ typeof(Construction), result => result is IThing },
@@ -19,16 +16,17 @@ public static class BenchmarkTests
 		{ typeof(Verify), result => result is null }
 	};
 
-	public static TheoryData<Type, MethodInfo> Matrix
+	public static TheoryData<Type, string> BenchmarkData
 	{
 		get
 		{
-			var matrix = new TheoryData<Type, MethodInfo>();
+			var methods = typeof(IMockingBenchmark).GetMethods();
+			var matrix = new TheoryData<Type, string>();
 			foreach (var benchmark in Benchmarks)
 			{
-				foreach (var method in Methods)
+				foreach (var method in methods)
 				{
-					matrix.Add(benchmark.Key, method);
+					matrix.Add(benchmark.Key, method.Name);
 				}
 			}
 
@@ -37,12 +35,12 @@ public static class BenchmarkTests
 	}
 
 	[Theory]
-	[MemberData(nameof(Matrix))]
-	public static void RunAll(Type type, MethodInfo library)
+	[MemberData(nameof(BenchmarkData))]
+	public void RunAll(Type type, string library)
 	{
 		//arrange
 		var benchmark = Activator.CreateInstance(type);
-		var method = benchmark?.GetType().GetMethod(library.Name);
+		var method = type.GetMethod(library);
 
 		//act
 		var result = method?.Invoke(benchmark, []);
