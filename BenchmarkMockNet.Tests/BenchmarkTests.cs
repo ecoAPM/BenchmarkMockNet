@@ -19,14 +19,17 @@ public static class BenchmarkTests
 		{ typeof(Verify), result => result is null }
 	};
 
-	public static IEnumerable<object[]> Matrix
+	public static TheoryData<Type, MethodInfo> Matrix
 	{
 		get
 		{
-			var matrix = new List<object[]>();
+			var matrix = new TheoryData<Type, MethodInfo>();
 			foreach (var benchmark in Benchmarks)
 			{
-				matrix.AddRange(Methods.Select(method => new object[] { benchmark.Key, method }));
+				foreach (var method in Methods)
+				{
+					matrix.Add(benchmark.Key, method);
+				}
 			}
 
 			return matrix;
@@ -42,7 +45,7 @@ public static class BenchmarkTests
 		var method = benchmark?.GetType().GetMethod(library.Name);
 
 		//act
-		var result = method?.Invoke(benchmark, Array.Empty<object>());
+		var result = method?.Invoke(benchmark, []);
 
 		//assert
 		var assertion = Benchmarks[type];
