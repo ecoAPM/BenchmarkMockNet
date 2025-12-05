@@ -4,7 +4,6 @@ using BenchmarkMockNet.PCLMock;
 using FakeItEasy;
 using Moq;
 using NSubstitute;
-using Rocks;
 using JustMock = Telerik.JustMock.Mock;
 
 namespace BenchmarkMockNet.Benchmarks;
@@ -60,7 +59,7 @@ public class EmptyReturn : MockingBenchmark<int>
 	public override int Rocks()
 	{
 		var expectations = new IThingCreateExpectations();
-		expectations.Methods.Zero().ReturnValue(0);
+		expectations.Setups.Zero().ReturnValue(0);
 		var mock = expectations.Instance();
 		return mock.Zero();
 	}

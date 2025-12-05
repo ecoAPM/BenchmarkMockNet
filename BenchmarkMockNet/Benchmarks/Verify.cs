@@ -5,7 +5,6 @@ using BenchmarkMockNet.PCLMock;
 using FakeItEasy;
 using Moq;
 using NSubstitute;
-using Rocks;
 using JustMock = Telerik.JustMock.Mock;
 using Times = Moq.Times;
 
@@ -72,7 +71,7 @@ public class Verify : MockingBenchmark
 	public override void Rocks()
 	{
 		var expectations = new IThingCreateExpectations();
-		expectations.Methods.DoSomething();
+		expectations.Setups.DoSomething();
 		expectations.Instance().DoSomething();
 		expectations.Verify();
 	}

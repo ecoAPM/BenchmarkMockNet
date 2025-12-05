@@ -4,7 +4,6 @@ using BenchmarkMockNet.PCLMock;
 using FakeItEasy;
 using Moq;
 using NSubstitute;
-using Rocks;
 using JustMock = Telerik.JustMock.Mock;
 
 namespace BenchmarkMockNet.Benchmarks;
@@ -77,7 +76,7 @@ public class Callback : MockingBenchmark<bool>
 	{
 		var called = false;
 		var expectations = new IThingCreateExpectations();
-		expectations.Methods.DoSomething().Callback(() => called = true);
+		expectations.Setups.DoSomething().Callback(() => called = true);
 		var mock = expectations.Instance();
 		mock.DoSomething();
 		return called;
