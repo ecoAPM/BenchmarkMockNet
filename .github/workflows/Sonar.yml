@@ -32,7 +32,7 @@ jobs:
         run: dotnet restore
 
       - name: Start Sonar Analysis
-        run: dotnet-sonarscanner begin /d:sonar.host.url="https://sonarcloud.io" /d:sonar.login="$SONAR_TOKEN" /o:"ecoapm" /k:"ecoAPM_BenchmarkMockNet" /d:sonar.cs.vstest.reportsPaths="BenchmarkMockNet.Tests/TestResults/results.trx" /d:sonar.cs.opencover.reportsPaths="BenchmarkMockNet.Tests/TestResults/coverage.opencover.xml"
+        run: dotnet-sonarscanner begin /d:sonar.host.url="https://sonarcloud.io" /d:sonar.token="$SONAR_TOKEN" /o:"ecoapm" /k:"ecoAPM_BenchmarkMockNet" /d:sonar.cs.vstest.reportsPaths="BenchmarkMockNet.Tests/TestResults/results.trx" /d:sonar.cs.opencover.reportsPaths="BenchmarkMockNet.Tests/TestResults/coverage.opencover.xml"
         env:
           SONAR_TOKEN: ${{secrets.SONAR_TOKEN}}
 
@@ -48,7 +48,7 @@ jobs:
         run: mv BenchmarkMockNet.Tests/TestResults/**/*.xml BenchmarkMockNet.Tests/TestResults
 
       - name: Finish Sonar Analysis
-        run: dotnet-sonarscanner end /d:sonar.login="$SONAR_TOKEN"
+        run: dotnet-sonarscanner end /d:sonar.token="$SONAR_TOKEN"
         env:
           SONAR_TOKEN: ${{secrets.SONAR_TOKEN}}
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
