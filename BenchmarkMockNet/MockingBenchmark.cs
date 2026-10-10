@@ -8,6 +8,7 @@ namespace BenchmarkMockNet;
 public abstract class MockingBenchmark<T> : IMockingBenchmark<T>
 {
 	public abstract T FakeItEasy();
+	public abstract T Imposter();
 	public abstract T Moq();
 	public abstract T NSubstitute();
 	public abstract T Rocks();
@@ -24,6 +25,7 @@ public abstract class MockingBenchmark : IMockingBenchmark
 	public abstract void Moq();
 	public abstract void NSubstitute();
 	public abstract void FakeItEasy();
+	public abstract void Imposter();
 	public abstract void Rocks();
 	public abstract void PCLMock();
 	public abstract void JustMockLite();

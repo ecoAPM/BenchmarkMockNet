@@ -1,6 +1,7 @@
 using System.Reflection;
 using BenchmarkMockNet.Benchmarks;
 using FakeItEasy;
+using Imposter.Abstractions;
 using Moq;
 using NSubstitute;
 using PCLMock;
@@ -26,6 +27,7 @@ public static class All
 	public static readonly AssemblyName[] Frameworks =
 	{
 		typeof(Fake).Assembly.GetName(),
+		typeof(GenerateImposterAttribute).Assembly.GetName(),
 		typeof(JustMock).Assembly.GetName(),
 		typeof(Mock).Assembly.GetName(),
 		typeof(Substitute).Assembly.GetName(),

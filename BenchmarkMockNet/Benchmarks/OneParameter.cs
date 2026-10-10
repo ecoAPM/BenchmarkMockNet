@@ -2,6 +2,7 @@ using System.ComponentModel;
 using BenchmarkDotNet.Attributes;
 using BenchmarkMockNet.PCLMock;
 using FakeItEasy;
+using Imposter.Abstractions;
 using Moq;
 using NSubstitute;
 using JustMock = Telerik.JustMock.Mock;
@@ -23,6 +24,13 @@ public class OneParameter : MockingBenchmark
 	{
 		var fake = A.Fake<IThing>();
 		fake.OneParameter(0);
+	}
+
+	[Benchmark]
+	public override void Imposter()
+	{
+		var thing = new IThingImposter().Instance();
+		thing.OneParameter(0);
 	}
 
 	[Benchmark]

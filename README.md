@@ -15,6 +15,7 @@ This repo contains the code for, and results of, a series of performance benchma
 The baseline is a simple [stub class](BenchmarkMockNet/ThingStub.cs).
 
 - [FakeItEasy](https://fakeiteasy.github.io)
+- [Imposter](https://github.com/themidnightgospel/Imposter)
 - [JustMockLite](https://www.telerik.com/justmock/free-mocking)
 - [Moq](https://www.moqthis.com/moq4/)
 - [NSubstitute](http://nsubstitute.github.io/)

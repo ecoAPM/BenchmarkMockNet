@@ -2,6 +2,7 @@ using System.ComponentModel;
 using BenchmarkDotNet.Attributes;
 using BenchmarkMockNet.PCLMock;
 using FakeItEasy;
+using Imposter.Abstractions;
 using Moq;
 using NSubstitute;
 using JustMock = Telerik.JustMock.Mock;
@@ -16,6 +17,9 @@ public class Construction : MockingBenchmark<IThing>
 
 	[Benchmark]
 	public override IThing FakeItEasy() => A.Fake<IThing>();
+
+	[Benchmark]
+	public override IThing Imposter() => new IThingImposter().Instance();
 
 	[Benchmark]
 	public override IThing JustMockLite()

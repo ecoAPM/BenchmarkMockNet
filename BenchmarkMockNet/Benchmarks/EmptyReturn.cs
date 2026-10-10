@@ -2,6 +2,7 @@ using System.ComponentModel;
 using BenchmarkDotNet.Attributes;
 using BenchmarkMockNet.PCLMock;
 using FakeItEasy;
+using Imposter.Abstractions;
 using Moq;
 using NSubstitute;
 using JustMock = Telerik.JustMock.Mock;
@@ -23,6 +24,13 @@ public class EmptyReturn : MockingBenchmark<int>
 	{
 		var fake = A.Fake<IThing>();
 		return fake.Zero();
+	}
+
+	[Benchmark]
+	public override int Imposter()
+	{
+		var thing = new IThingImposter().Instance();
+		return thing.Zero();
 	}
 
 	[Benchmark]

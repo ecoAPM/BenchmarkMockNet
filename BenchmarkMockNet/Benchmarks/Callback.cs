@@ -2,6 +2,7 @@ using System.ComponentModel;
 using BenchmarkDotNet.Attributes;
 using BenchmarkMockNet.PCLMock;
 using FakeItEasy;
+using Imposter.Abstractions;
 using Moq;
 using NSubstitute;
 using JustMock = Telerik.JustMock.Mock;
@@ -26,6 +27,16 @@ public class Callback : MockingBenchmark<bool>
 		var fake = A.Fake<IThing>();
 		A.CallTo(() => fake.DoSomething()).Invokes(() => called = true);
 		fake.DoSomething();
+		return called;
+	}
+
+	[Benchmark]
+	public override bool Imposter()
+	{
+		var called = false;
+		var imposter = new IThingImposter();
+		imposter.DoSomething().Callback(() => called = true);
+		imposter.Instance().DoSomething();
 		return called;
 	}
 

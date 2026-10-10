@@ -3,6 +3,7 @@ using System.Reflection;
 using BenchmarkDotNet.Attributes;
 using BenchmarkMockNet.PCLMock;
 using FakeItEasy;
+using Imposter.Abstractions;
 using Moq;
 using NSubstitute;
 using JustMock = Telerik.JustMock.Mock;
@@ -30,6 +31,14 @@ public class Verify : MockingBenchmark
 		var fake = A.Fake<IThing>();
 		fake.DoSomething();
 		A.CallTo(() => fake.DoSomething()).MustHaveHappened();
+	}
+
+	[Benchmark]
+	public override void Imposter()
+	{
+		var imposter = new IThingImposter();
+		imposter.Instance().DoSomething();
+		imposter.DoSomething().Called(Count.Once());
 	}
 
 	[Benchmark]
