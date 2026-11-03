@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="BenchmarkMockNet.Tests/BenchmarkMockNet.Tests.csproj" />
+  <Project Path="BenchmarkMockNet/BenchmarkMockNet.csproj" />
+</Solution>
