@@ -1,5 +1,4 @@
 name: Sonar
-
 on: push
 
 jobs:
